@@ -5,6 +5,6 @@ Martin Cupic, Flip Lijnzaad and Gilles Lijnzaad
 
 ## Dependencies
 
-* Python 3.8.5 with Tkinter module
-* [SWI-Prolog 8.2.2](https://www.swi-prolog.org/Download.html)
-* [pyswip](https://pypi.org/project/pyswip/): `pip install pyswip`
+* [Python](https://www.python.org/downloads/) 3.8.5 with [Tkinter](https://docs.python.org/3/library/tkinter.html) 8.6
+* [SWI-Prolog](https://www.swi-prolog.org/Download.html) 8.2.2
+* [pyswip](https://pypi.org/project/pyswip/)
