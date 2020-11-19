@@ -8,6 +8,7 @@ window.title("Pharmacy Help")
 frame  = tk.Frame(window)
 frame.pack()
 
+## Initializes interface
 def initGUI():
     tk.Label(
         frame,
@@ -21,7 +22,7 @@ def initGUI():
         text    = "Yes",
         width   = 20,
         height  = 3,
-        command = lambda: muscle_pain(True)     # function called when pressed
+        command = lambda: muscle_pain(True) # function called when pressed
     ).pack()
 
     tk.Button(
@@ -29,12 +30,14 @@ def initGUI():
         text    = "No",
         width   = 20,
         height  = 3,
-        command = lambda: muscle_pain(False)    # function called when pressed
+        command = lambda: muscle_pain(False)# function called when pressed
     ).pack()
 
-    window.mainloop()                           # keep window running until closed
+    window.mainloop()                       # keep window running until closed
 
+## Shows message in argument in the Tkinter frame
 def show_message(message):
-    frame.pack_forget()
+    frame.pack_forget()                     # clear the frame 
     text = tk.Label(text = message)
+                                            # center the label in the frame 
     text.place(relx=.5, rely=.5, anchor="center")
