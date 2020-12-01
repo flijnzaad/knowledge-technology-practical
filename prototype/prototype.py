@@ -20,8 +20,18 @@ def add_fact(fact):
 
 
 def find_next_question():
-    # what to do?
-    return next_question
+    cough = pl.query("cough(yes)")
+    if cough:                               # this is going wrong
+        return youngerthan3months
+
+    # if there are no more questions to ask
+    give_advice()
+
+
+def give_advice():
+    from interface import show_advice
+    advice = find_advice()
+    show_advice(advice)
 
 
 def find_advice():
@@ -34,13 +44,6 @@ def find_advice():
         return "You should take " + q[0]["X"] + '.'
 
     return None
-
-
-def give_advice():
-    from interface import show_advice
-    advice = find_advice()
-    if advice is not None:
-        show_advice(advice)
 
 
 if __name__ == "__main__":

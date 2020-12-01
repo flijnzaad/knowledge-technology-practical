@@ -10,5 +10,13 @@ cough3weeks = (
     "Yes",
     "cough(morethan3weeks)",
     "No",
-    "cough(yes)"
+    "cough(yes)"                            # dummy fact
+)
+
+youngerthan3months = (
+    "Are you under 3 months of age?",
+    "Yes",
+    "age(under3months)",
+    "No",
+    "age(over3months)"                      # dummy fact
 )

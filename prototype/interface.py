@@ -3,7 +3,7 @@ from prototype import add_fact
 
 ## GUI elements
 window = tk.Tk()
-window.geometry("300x200")
+window.geometry("600x200")
 window.title("Pharmacy Help")
 frame  = tk.Frame(window)
 frame.pack()
@@ -18,7 +18,7 @@ def show_question(inquiry):
     tk.Label(
         frame,
         text    = question,
-        width   = 25,
+        width   = 100,
         height  = 3
     ).pack()
 
