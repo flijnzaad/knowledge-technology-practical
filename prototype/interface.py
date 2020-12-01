@@ -8,7 +8,13 @@ window.title("Pharmacy Help")
 frame  = tk.Frame(window)
 frame.pack()
 
-def show_question(question, answer1, fact1, answer2, fact2):
+def show_question(inquiry):
+    question = inquiry[0]
+    answer1  = inquiry[1]
+    fact1    = inquiry[2]
+    answer2  = inquiry[3]
+    fact2    = inquiry[4]
+
     tk.Label(
         frame,
         text    = question,
@@ -33,6 +39,7 @@ def show_question(question, answer1, fact1, answer2, fact2):
     ).pack()
 
     window.mainloop()
+
 
 def show_advice(advice):
     frame.pack_forget()                     # clear the frame
