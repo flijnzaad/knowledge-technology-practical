@@ -40,7 +40,6 @@ def show_question(inquiry):
 
     window.mainloop()
 
-
 def show_advice(advice):
     frame.pack_forget()                     # clear the frame
     text = tk.Label(text = "ADVICE: " + advice)

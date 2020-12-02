@@ -1,3 +1,6 @@
+medication(none).
+age(none).
+
 go(physician) :-
     cough(morethan3weeks).
 
@@ -51,6 +54,3 @@ take(soothing_syrup) :-
     cough(severe),
     cough(productive),
     age(under2years).
-
-medication(none).
-age(none).
