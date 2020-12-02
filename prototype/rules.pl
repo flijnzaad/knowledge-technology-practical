@@ -1,5 +1,5 @@
-medication(none).
-age(none).
+medication(none).                           % dummy facts to 'introduce' the 
+age(none).                                  % predicate to the KB 
 
 go(physician) :-
     cough(morethan3weeks).
