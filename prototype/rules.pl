@@ -2,15 +2,15 @@ medication(none).                           % dummy facts to 'introduce' the
 age(none).                                  % predicate to the KB 
 
 go(physician) :-
-    cough(morethan3weeks).
+    cough(more_than_3weeks).
 
 go(physician) :-
     cough(yes),
-    age(under3months).
+    age(under_3_months).
 
 go(physician) :-
-    cough(morethan7days),
-    other_symptoms(morethan7days).
+    cough(more_than_7_days),
+    other_symptoms(more_than_7_days).
 
 go(physician) :-
     medication(ace_inhibitors).
@@ -20,7 +20,7 @@ take(suppressant) :-
     medication(soothing_syrup).
 
 take(soothing_syrup) :-
-    age(under6years).
+    age(under_6_years).
 
 take(soothing_syrup) :-
     pregnant(yes).
@@ -43,7 +43,7 @@ take(expectorant) :-
     cough(severe),
     cough(productive),
     antibiotics(no),
-    \+ age(under2years).                    % check whether that negation is correct
+    \+ age(under_2_years).                    % check whether that negation is correct
 
 take(soothing_syrup) :-
     cough(severe),
@@ -53,4 +53,4 @@ take(soothing_syrup) :-
 take(soothing_syrup) :-
     cough(severe),
     cough(productive),
-    age(under2years).
+    age(under_2_years).
