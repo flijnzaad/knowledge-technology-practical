@@ -4,6 +4,7 @@
 ## [2] the fact that will be put in the database if answer 1 is chosen
 ## [3] answer 2
 ## [4] the fact that will be put in the database if answer 2 is chosen
+## etc.
 
 cough_3_weeks = (
     "Have you had the cough for more than 3 weeks?",
@@ -37,17 +38,17 @@ already_soothing = (
     "Yes",
     "medication(soothing_syrup)",
     "No",
-    ""
+    ""                                      # same here 
 )
 
 experiencing_symptoms = (
-    "What symptoms are you expieriencing?",
+    "What symptoms are you experiencing?",
     "Coughing",
-    "patient(has_cough)",
+    "cough(yes)",
     "Blocked nose",
-    "patient(has_blockednose)",                      # dummy fact
+    "blocked_nose(yes)",                    # dummy fact
     "Throat ache",
-    "patient(has_throatache)"                     # dummy fact
+    "throat_ache(yes)"                      # dummy fact
 )
 
 additional_symptoms = (
@@ -60,7 +61,6 @@ additional_symptoms = (
     "patientadd(is_all)",
     "No I am experiencing neither",
     "patientadd(is_none)"
-
 )
 
 symptom_length = (
@@ -71,7 +71,6 @@ symptom_length = (
     "symptomlen(len_more1week)",
     "less than 1 week",
     "symptomlen(len_less1week)"
-
 )
 
 is_pregnant = (
@@ -82,7 +81,6 @@ is_pregnant = (
     "patient(is_notpregnant)",
     "Maybe",
     "Patient(need_pregnancytest)"
-
 )
 
 younger_than_6_years = (
@@ -117,8 +115,6 @@ sedative_medication = (
     "medication(no_sedative)"
 )
 
-
-
 antibiotic_medication = (
     "Are you using antibiotics?",
     "Yes",
@@ -126,8 +122,6 @@ antibiotic_medication = (
     "No",
     "medication(no_antibiotic)"
 )
-
-
 
 younger_than_2_years = (
     "Are you under 2 years old?",
@@ -139,11 +133,12 @@ younger_than_2_years = (
 
 tested_covid19 = (
     "Have you tested for COVID-19?",
-    "Yes",
-    "covid(test_positive)",
+    "Yes, it came back positive",
+    "covid(positive)",
+    "Yes, it came back negative",
+    "covid(negative)",
     "No",
-    "covid(test_negative)",
-    "No but I have a test scheduled",
+    "covid(no_test)",
+    "No, but I have a test scheduled",      # needed? 
     "covid(test_scheduled)"
-
 )

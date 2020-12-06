@@ -5,7 +5,7 @@ pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
 def main():
-    ask_question(cough3weeks)               # starting inquiry
+    ask_question(cough_3_weeks)               # starting inquiry
 
 ## Ask the question via the GUI
 def ask_question(inquiry):
@@ -21,7 +21,7 @@ def add_fact(fact):
 def find_next_question():
     cough = list(pl.query("cough(yes)"))
     if cough:                               # this is going wrong
-        return youngerthan3months
+        return younger_than_3_months
 
     # if there are no more questions to ask
     give_advice()
