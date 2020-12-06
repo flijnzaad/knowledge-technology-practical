@@ -10,7 +10,8 @@ def main():
 ## Ask the question via the GUI
 def ask_question(inquiry):
     from interface import show_question
-    show_question(inquiry)
+    if inquiry is not None:
+        show_question(inquiry)
 
 ## Adds the fact in arg to the database, and asks new question
 def add_fact(fact):
@@ -22,7 +23,6 @@ def find_next_question():
     cough = list(pl.query("cough(yes)"))
     if cough:                               # this is going wrong
         return younger_than_3_months
-
     # if there are no more questions to ask
     give_advice()
 
