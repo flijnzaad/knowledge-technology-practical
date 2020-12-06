@@ -21,7 +21,7 @@ def add_fact(fact):
 ## Determines what the next question should be
 def find_next_question():
     cough = list(pl.query("cough(yes)"))
-    if cough:                               # this is going wrong
+    if cough:
         return younger_than_3_months
     # if there are no more questions to ask
     give_advice()
