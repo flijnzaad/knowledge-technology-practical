@@ -15,6 +15,8 @@ def show_question(inquiry):
     answer2  = inquiry[3]
     fact2    = inquiry[4]
 
+    # frame.pack_forget()                     # clear the frame 
+
     tk.Label(
         frame,
         text    = question,

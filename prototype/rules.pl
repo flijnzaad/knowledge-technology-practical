@@ -1,6 +1,27 @@
-medication(none).                           % dummy facts to 'introduce' the 
-age(none).                                  % predicate to the KB 
+:- dynamic age/1.
 
+medication(unknown).                        % dummy facts to 'introduce' the 
+age(none).                                  % predicate to the KB 
+cough(none).
+
+%% Rules for which questions to ask
+ask(younger_than_3_months) :-
+    cough(yes).
+
+ask(using_ace_inhibitors) :-
+    age(over_3_months).
+    % TODO: is this the correct rule body? should it include cough(yes)?
+
+ask(how_long_cough) :-
+    medication(none).
+
+ask(additional_symptoms) :-
+    cough(more_than_7_days).
+
+ask(already_soothing) :-
+    cough(less_than_7_days).
+
+%% Rules for inference
 go(physician) :-
     cough(more_than_3weeks).
 
@@ -14,6 +35,8 @@ go(physician) :-
 
 go(physician) :-
     medication(ace_inhibitors).
+
+take(none).
 
 take(suppressant) :-
     cough(yes),
@@ -43,7 +66,7 @@ take(expectorant) :-
     cough(severe),
     cough(productive),
     antibiotics(no),
-    \+ age(under_2_years).                    % check whether that negation is correct
+    \+ age(under_2_years).                  % check whether that negation is correct
 
 take(soothing_syrup) :-
     cough(severe),

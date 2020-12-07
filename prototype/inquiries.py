@@ -6,20 +6,23 @@
 ## [4] the fact that will be put in the database if answer 2 is chosen
 ## etc.
 
-cough_3_weeks = (
-    "Have you had the cough for more than 3 weeks?",
-    "Yes",
-    "cough(morethan3weeks)",
-    "No",
-    "cough(yes)"                            # dummy fact
+how_long_cough = (
+    "How long have you had the cough?",
+    "For more than 3 weeks",
+    "cough(more_than_3_weeks)",
+    "For more than 7 days",
+    "cough(more_than_7_days)",
+    "For less than 7 days",
+    "cough(less_than_7_days)"
 )
+# TODO: does asserta/1 also add the fact if it's already there?
 
 younger_than_3_months = (
     "Are you under 3 months of age?",
     "Yes",
-    "age(under3months)",
+    "age(under_3_months)",
     "No",
-    "age(over3months)"                      # dummy fact
+    "age(over_3_months)"
 )
 
 using_ace_inhibitors = (
@@ -27,8 +30,7 @@ using_ace_inhibitors = (
     "Yes",
     "medication(ace_inhibitors)",
     "No",
-    ""                                      # dummy fact is already present
-    # don't know whether pyswip accepts this
+    "medication(none)"
 )
 
 # TODO: this has a very similar setup to the previous one; is there a way to
@@ -38,7 +40,8 @@ already_soothing = (
     "Yes",
     "medication(soothing_syrup)",
     "No",
-    ""                                      # same here 
+    "medication(none)"
+    # TODO: should it be more specific than medication(none)?
 )
 
 experiencing_symptoms = (
@@ -63,15 +66,15 @@ additional_symptoms = (
     "patientadd(is_none)"
 )
 
-symptom_length = (
-    "How long have you been having these symptoms?",
-    "More than 3 weeks",
-    "symptomlen(len_more3week)",
-    "More than 1 week",
-    "symptomlen(len_more1week)",
-    "less than 1 week",
-    "symptomlen(len_less1week)"
-)
+#  symptom_length = (
+    #  "How long have you been having these symptoms?",
+    #  "More than 3 weeks",
+    #  "symptomlen(len_more3week)",
+    #  "More than 1 week",
+    #  "symptomlen(len_more1week)",
+    #  "less than 1 week",
+    #  "symptomlen(len_less1week)"
+#  )
 
 is_pregnant = (
     "Are you pregnant?",
