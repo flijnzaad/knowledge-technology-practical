@@ -1,16 +1,19 @@
 %% Declare these predicates as dynamic, i.e. facts with these predicates
 %% may be added
+:- dynamic advice/1.
 :- dynamic age/1.
-:- dynamic medication/1.
 :- dynamic asked/1.
 :- dynamic cough/1.
+:- dynamic medication/1.
 % TODO: probably needs more still (it returns a permission error static 
 %       procedure of some sort
 
 medication(unknown).                        % dummy facts to 'introduce' the 
 age(none).                                  % predicates to the KB 
-cough(none).
+cough(yes).
+% TODO: change that once we start incorporating other symptoms!
 asked(none).
+pregnant(unknown).
 
 %% Rules for which questions to ask
 % TODO: is the negation too much hardcoding? Retracting rules doesn't seem
@@ -37,58 +40,58 @@ ask(already_soothing) :-
     cough(less_than_7_days).
 
 %% Rules for inference
-go(physician) :-
-    cough(more_than_3weeks).
+advice(none).
 
-go(physician) :-
+advice(physician) :-
+    cough(more_than_3_weeks).
+
+advice(physician) :-
     cough(yes),
     age(under_3_months).
 
-go(physician) :-
+advice(physician) :-
     cough(more_than_7_days),
     other_symptoms(more_than_7_days).
 
-go(physician) :-
+advice(physician) :-
     medication(ace_inhibitors).
 
-take(none).
-
-take(suppressant) :-
+advice(suppressant) :-
     cough(yes),
     medication(soothing_syrup).
 
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     age(under_6_years).
 
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     pregnant(yes).
 
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     cough(mild).
 
-take(suppressant) :-
+advice(suppressant) :-
     cough(severe),
     cough(dry),
     sedative(no).
 
 % check this with the expert
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     cough(severe),
     cough(dry),
     sedative(yes).
 
-take(expectorant) :-
+advice(expectorant) :-
     cough(severe),
     cough(productive),
     antibiotics(no),
     \+ age(under_2_years).                  % check whether that negation is correct
 
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     cough(severe),
     cough(productive),
     antibiotics(yes).
 
-take(soothing_syrup) :-
+advice(soothing_syrup) :-
     cough(severe),
     cough(productive),
     age(under_2_years).

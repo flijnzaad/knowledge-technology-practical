@@ -22,10 +22,11 @@ def add_fact(fact):
 ## Determine what the next question should be
 ## and remove question from KB so you don't ask it again
 def find_next_question():
-    question = list(pl.query("ask(X)"))
-    answer = question[0]["X"]               # take the first answer 
-    pl.asserta("asked({})".format(answer))
-    if question:
+    q = list(pl.query("ask(X)"))
+    if q:
+        answer = q[0]["X"]                      # take the first answer 
+        # TODO: is this the right location in the code for this?
+        pl.asserta("asked({})".format(answer))
         print(answer)                       # for debugging 
         return inquiries[answer]
 
@@ -41,13 +42,16 @@ def give_advice():
 
 ## Make the inference, return the associated advice
 def find_advice():
-    q = list(pl.query("go(X)"))             # "Should I go see someone?"
+    q = list(pl.query("advice(X)"))
     if q:
-        return "You should go see a " + q[0]["X"] + '.'
-
-    q = list(pl.query("take(X)"))           # "Should I take any medication?"
-    if q:
-        return "You should take " + q[0]["X"] + '.'
+        print(q)
+        for answer in q:
+            if answer["X"] != "none":
+                break
+        if answer["X"] == "physician":
+            return "You should go see your physician."
+        else:
+            return "You should take {}.".format(answer)
 
     return None
 
