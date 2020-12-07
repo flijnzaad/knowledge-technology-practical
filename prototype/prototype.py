@@ -5,7 +5,7 @@ pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
 def main():
-    ask_question(younger_than_3_months)     # starting inquiry
+    ask_question(inquiries["younger_than_3_months"])     # starting inquiry
 
 ## Ask the question via the GUI
 def ask_question(inquiry):
@@ -20,14 +20,18 @@ def add_fact(fact):
     ask_question(find_next_question())
 
 ## Determine what the next question should be
+## and remove question from KB so you don't ask it again
 def find_next_question():
     question = list(pl.query("ask(X)"))
+    answer = question[0]["X"]               # take the first answer 
+    pl.asserta("asked({})".format(answer))
     if question:
-        print(question[0]["X"])
-        return question[0]["X"]
+        print(answer)                       # for debugging 
+        return inquiries[answer]
 
     # if there are no more questions to ask
-    # give_advice()
+    give_advice()
+    # TODO: this doesn't work!
 
 ## Give the advice via the GUI
 def give_advice():

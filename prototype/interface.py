@@ -3,7 +3,7 @@ from prototype import add_fact
 
 ## GUI elements
 window = tk.Tk()
-window.geometry("600x200")
+window.geometry("600x800")                  # changed from 600x200 to fit other Qs 
 window.title("Pharmacy Help")
 frame  = tk.Frame(window)
 frame.pack()
@@ -14,6 +14,7 @@ def show_question(inquiry):
     fact1    = inquiry[2]
     answer2  = inquiry[3]
     fact2    = inquiry[4]
+    # TODO: needs to also be possible for more than 2 answers
 
     # frame.pack_forget()                     # clear the frame 
 
