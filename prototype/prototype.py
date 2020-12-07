@@ -5,34 +5,41 @@ pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
 def main():
-    ask_question(cough_3_weeks)               # starting inquiry
+    ask_question(inquiries["younger_than_3_months"])     # starting inquiry
 
 ## Ask the question via the GUI
 def ask_question(inquiry):
     from interface import show_question
+
     if inquiry is not None:
         show_question(inquiry)
 
-## Adds the fact in arg to the database, and asks new question
+## Add the fact in arg to the database, and ask new question
 def add_fact(fact):
     pl.asserta(fact)
     ask_question(find_next_question())
 
-## Determines what the next question should be
+## Determine what the next question should be
+## and remove question from KB so you don't ask it again
 def find_next_question():
-    cough = list(pl.query("cough(yes)"))
-    if cough:
-        return younger_than_3_months
+    question = list(pl.query("ask(X)"))
+    answer = question[0]["X"]               # take the first answer 
+    pl.asserta("asked({})".format(answer))
+    if question:
+        print(answer)                       # for debugging 
+        return inquiries[answer]
+
     # if there are no more questions to ask
     give_advice()
+    # TODO: this doesn't work!
 
-## Gives the advice via the GUI
+## Give the advice via the GUI
 def give_advice():
     from interface import show_advice
     advice = find_advice()
     show_advice(advice)
 
-## Makes the inference, returns the associated advice
+## Make the inference, return the associated advice
 def find_advice():
     q = list(pl.query("go(X)"))             # "Should I go see someone?"
     if q:
