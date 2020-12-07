@@ -4,35 +4,33 @@ from inquiries import *
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
+starting_question = "younger_than_3_months"
+
 def main():
-    ask_question(inquiries["younger_than_3_months"])     # starting inquiry
+    ask_question(starting_question)         # starting inquiry
 
 ## Ask the question via the GUI
-def ask_question(inquiry):
+def ask_question(question):
     from interface import show_question
 
-    if inquiry is not None:
-        show_question(inquiry)
+    pl.asserta("asked({})".format(question))# the question is asked 
 
-## Add the fact in arg to the database, and ask new question
+    if question is not None:
+        show_question(inquiries[question])
+
+## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
     pl.asserta(fact)
     ask_question(find_next_question())
 
 ## Determine what the next question should be
-## and remove question from KB so you don't ask it again
 def find_next_question():
     q = list(pl.query("ask(X)"))
     if q:
-        answer = q[0]["X"]                      # take the first answer 
-        # TODO: is this the right location in the code for this?
-        pl.asserta("asked({})".format(answer))
-        print(answer)                       # for debugging 
-        return inquiries[answer]
+        return q[0]["X"]                      # take the first answer 
 
     # if there are no more questions to ask
     give_advice()
-    # TODO: this doesn't work!
 
 ## Give the advice via the GUI
 def give_advice():
@@ -44,7 +42,9 @@ def give_advice():
 def find_advice():
     q = list(pl.query("advice(X)"))
     if q:
-        print(q)
+        print(q)                            # debugging purposes 
+        # TODO: this was to avoid the advice "You should take a none.", caused
+        # by the dummy fact advice(none). This could probably be less ugly
         for answer in q:
             if answer["X"] != "none":
                 break
