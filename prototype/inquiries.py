@@ -62,7 +62,8 @@ inquiries = {
             "Yes",
             "medication(soothing_syrup)"
         ),
-        (    "No",
+        (   
+            "No",
             "medication(none)"
         )
         # TODO: should it be more specific than medication(none)?
@@ -87,22 +88,14 @@ inquiries = {
 
     "additional_symptoms" : 
     (
-        "Do you also have other symptoms, such as vomiting or nausea for more than 7 days?",
+        "Do you also experience other symptoms, such as higher temperature and general malaise?",
         (
-            "Yes I am experiencing nausea",
-            "patientadd(is_nauseated)"
+            "Yes",
+            "additional_symptoms(yes)"
         ),
         (
-            "Yes I am experiencing vomiting",
-            "patientadd(is_vomiting)"
-        ),
-        (
-            "Yes I am experiencing both",
-            "patientadd(is_all)"
-        ),
-        (
-            "No I am experiencing neither",
-            "patientadd(is_none)"
+            "No",
+            "additional_symptoms(no)"
         )
     ),
 
@@ -152,11 +145,11 @@ inquiries = {
         "How severe is your cough?",
         (
             "Mild",
-            "patient(cough_mild)"
+            "cough(mild)"
         ),
         (
             "Severe",
-            "patient(cough_severe)"
+            "cough(severe)"
         )
     ),
 
@@ -165,11 +158,11 @@ inquiries = {
         "What kind of cough do you have?",
         (
             "Dry",
-            "patient(cough_dry)"
+            "cough(dry)"
         ),
         (
             "productive",
-            "patient(cough_productive)"
+            "cough(productive)"
         )
     ),
 
@@ -199,16 +192,17 @@ inquiries = {
         )
     ),
 
+    # TODO: asking for age should be more elegant
     "younger_than_2_years" : 
     (
         "Are you under 2 years old?",
         (
             "Yes",
-            "age(under2years)"
+            "age(under_2_years)"
         ),
         (
             "No",
-            "age(over2years)"
+            "age(over_2_years)"
         )
     ),
 
