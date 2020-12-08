@@ -18,6 +18,7 @@ cough(yes).
 medication(unknown).                        
 pregnant(unknown).
 
+
 %% Rules that infer which questions to ask
 
 % TODO: is the negation too much hardcoding? Retracting rules doesn't seem
@@ -83,7 +84,7 @@ advice(physician) :-
 advice(physician) :-
     medication(ace_inhibitors).
 
-advice(suppressant) :-
+advice('a cough suppressant') :-
     cough(mild),
     medication('soothing syrup').
 
@@ -96,16 +97,16 @@ advice('soothing syrup') :-
 advice('soothing syrup') :-
     cough(mild).
 
-advice(suppressant) :-
+advice('a cough suppressant') :-
     cough(severe),
     cough(dry),
-    sedative(no).
+    medication(no_sedative).
 
 % check this with the expert
 advice('soothing syrup') :-
     cough(severe),
     cough(dry),
-    sedative(yes).
+    medication(sedative).
 
 advice(expectorant) :-
     cough(severe),
