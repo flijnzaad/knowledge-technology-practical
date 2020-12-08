@@ -6,16 +6,16 @@
 :- dynamic asked/1.
 :- dynamic cough/1.
 :- dynamic medication/1.
-% TODO: probably needs more still (it returns a permission error static 
+% TODO: probably needs more still (it returns a permission error static
 %       procedure of some sort, put it here).
 
-%% Dummy facts to 'introduce' the predicates to the knowledge base 
+%% Dummy facts to 'introduce' the predicates to the knowledge base
 additional_symptoms(unknown).
 age(none).
 asked(none).
 % TODO: change cough(yes) once we start incorporating other symptoms!
-cough(yes).                                  
-medication(unknown).                        
+cough(yes).
+medication(unknown).
 pregnant(unknown).
 
 
@@ -68,7 +68,7 @@ ask(younger_than_2_years) :-
     medication(no_antibiotic).
 
 %% Rules for inference of advice
-advice(none).                               % dummy fact to introduce advice/1 
+advice(none).                               % dummy fact to introduce advice/1
 
 advice(physician) :-
     cough(more_than_3_weeks).
@@ -86,15 +86,15 @@ advice(physician) :-
 
 advice('a cough suppressant') :-
     cough(mild),
-    medication('soothing syrup').
+    medication(soothing_syrup).
 
-advice('soothing syrup') :-
+advice('soothing cough syrup') :-
     age(under_6_years).
 
-advice('soothing syrup') :-
+advice('soothing cough syrup') :-
     pregnant(yes).
 
-advice('soothing syrup') :-
+advice('soothing cough syrup') :-
     cough(mild).
 
 advice('a cough suppressant') :-
@@ -103,23 +103,23 @@ advice('a cough suppressant') :-
     medication(no_sedative).
 
 % check this with the expert
-advice('soothing syrup') :-
+advice('a soothing cough syrup') :-
     cough(severe),
     cough(dry),
     medication(sedative).
 
-advice(expectorant) :-
+advice('an expectorant cough syrup') :-
     cough(severe),
     cough(productive),
     medication(no_antibiotic),
     age(over_2_years).
 
-advice('soothing syrup') :-
+advice('a soothing cough syrup') :-
     cough(severe),
     cough(productive),
     medication(antibiotic).
 
-advice('soothing syrup') :-
+advice('a soothing cough syrup') :-
     cough(severe),
     cough(productive),
     age(under_2_years).
