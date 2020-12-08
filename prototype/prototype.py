@@ -11,12 +11,12 @@ def main():
 
 ## Ask the question via the GUI
 def ask_question(question):
-    from interface import show_question
+    from interface import show_inquiry
 
-    pl.asserta("asked({})".format(question))# the question is asked 
+    pl.asserta("asked({})".format(question))# the question is asked
 
     if question is not None:
-        show_question(inquiries[question])
+        show_inquiry(inquiries[question])
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
@@ -28,7 +28,7 @@ def add_fact(fact):
 def find_next_question():
     q = list(pl.query("ask(X)"))
     if q:
-        return q[0]["X"]                    # take the first answer 
+        return q[0]["X"]                    # take the first answer
 
     # if there are no more questions to ask
     give_advice()
@@ -43,7 +43,7 @@ def give_advice():
 def find_advice():
     q = list(pl.query("advice(X)"))
     if q:
-        print(q)                            # debugging purposes 
+        print(q)                            # debugging purposes
         # TODO: this was to avoid the advice "You should take a none.", caused
         # by the dummy fact advice(none). This could probably be less ugly
         for answer in q:

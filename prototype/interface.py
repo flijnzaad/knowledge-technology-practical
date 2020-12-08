@@ -1,41 +1,49 @@
 import tkinter as tk
 from prototype import add_fact
 
+## GUI constants
+buttonwidth = 50
+buttonheight = 3
+
 ## GUI elements
 window = tk.Tk()
-window.geometry("600x800")                  # changed from 600x200 to fit other Qs 
+window.geometry("900x900")
 window.title("Pharmacy Help")
-frame  = tk.Frame(window)
-frame.pack()
+mainframe = tk.Frame(window)
+mainframe.pack()
 
-def show_question(inquiry):
-    question = inquiry[0]
+def show_inquiry(inquiry):
+    clear_frame(mainframe)
+    show_question(inquiry[0])
+    show_buttons(inquiry)
+    window.mainloop()
 
-    # frame.pack_forget()                     # clear the frame 
-    # TODO: doesn't work
-
+def show_question(question):
     tk.Label(
-        frame,
+        mainframe,
         text    = question,
         width   = 100,
         height  = 3
     ).pack()
 
+def show_buttons(inquiry):
     for option in inquiry[1:]:
         answer = option[0]
         fact = option[1]
         tk.Button(
-            frame,
+            mainframe,
             text    = answer,
-            width   = 20,
-            height  = 3,
+            width   = buttonwidth,
+            height  = buttonheight,
             command = lambda fact = fact: add_fact(fact)
         ).pack()
 
-    window.mainloop()
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
 
 def show_advice(advice):
-    frame.pack_forget()                     # clear the frame
+    mainframe.pack_forget()                     # clear the frame
     text = tk.Label(text = "ADVICE: " + advice)
                                             # center the label in the frame
     text.place(relx=.5, rely=.5, anchor="center")
