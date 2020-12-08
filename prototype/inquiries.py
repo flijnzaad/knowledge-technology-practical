@@ -1,17 +1,14 @@
 ## an inquiry itself is a tuple of strings, containing:
-## [0] the question
-## [1] answer 1
-## [2] the fact that will be put in the knowledge base if answer 1 is chosen
-## [3] answer 2
-## [4] the fact that will be put in the knowledge base if answer 2 is chosen
-## etc.
-# TODO: update this documentation info at the top, it's outdated
+## 0: the question itself
+## 1: an explanation about why the system asks the question
+## a tuple for each answer, containing the answer string and corresponding fact
 
 inquiries = {
 
-    "how_long_cough" : 
+    "how_long_cough" :
     (
         "How long have you had the cough?",
+        "EXPLANATION",
         (
             "For more than 3 weeks",
             "cough(more_than_3_weeks)"
@@ -27,9 +24,11 @@ inquiries = {
     ),
     # TODO: does asserta/1 also add the fact if it's already there?
 
-    "younger_than_3_months" : 
+    "younger_than_3_months" :
     (
         "Are you under 3 months of age?",
+        "For infants under 3 months, coughing can be a symptom of a life-" +
+        "threatening disease.",
         (
             "Yes",
             "age(under_3_months)"
@@ -42,7 +41,8 @@ inquiries = {
 
     "using_ace_inhibitors" :
     (
-        "Are you using ace inhibitors?",
+        "Are you using ACE inhibitors, such as ...? (give examples)",
+        "Coughing can be a side effect of this group of medications.",
         (
             "Yes",
             "medication(ace_inhibitors)"
@@ -55,23 +55,25 @@ inquiries = {
 
     # TODO: this has a very similar setup to the previous one; is there a way to
     # generalize this?
-    "already_soothing" : 
+    "already_soothing" :
     (
         "Are you already using soothing cough syrup against your cough?",
+        None,
         (
             "Yes",
             "medication(soothing_syrup)"
         ),
-        (   
+        (
             "No",
             "medication(none)"
         )
         # TODO: should it be more specific than medication(none)?
     ),
 
-    "experiencing_symptoms" : 
+    "experiencing_symptoms" :
     (
         "What symptoms are you experiencing?",
+        None,
         (
             "Coughing",
             "cough(yes)"
@@ -86,9 +88,10 @@ inquiries = {
         )
     ),
 
-    "additional_symptoms" : 
+    "additional_symptoms" :
     (
         "Do you also experience other symptoms, such as higher temperature and general malaise?",
+        "Additional symptoms may be a sign of an infection.",
         (
             "Yes",
             "additional_symptoms(yes)"
@@ -99,7 +102,7 @@ inquiries = {
         )
     ),
 
-    #  symptom_length = 
+    #  symptom_length =
     #  (
         #  "How long have you been having these symptoms?",
         #  "More than 3 weeks",
@@ -110,15 +113,17 @@ inquiries = {
         #  "symptomlen(len_less1week)"
     #  )
 
-    "is_pregnant" : 
+    "is_pregnant" :
     (
         "Are you pregnant?",
+        "Some medication can have an (unwanted) effect on unborn babies, so not " +
+        "all medication is suitable for people who are pregnant.",
         (
             "Yes",
             "patient(is_pregnant)"
         ),
         (
-            "No", 
+            "No",
             "patient(is_notpregnant)"
         ),
         (
@@ -127,9 +132,10 @@ inquiries = {
         )
     ),
 
-    "younger_than_6_years" : 
+    "younger_than_6_years" :
     (
         "Are you under 6 years old?",
+        "Not all medication is suitable for children.",
         (
             "Yes",
             "age(under6yearss)"
@@ -140,9 +146,10 @@ inquiries = {
         )
     ),
 
-    "cough_severity" : 
+    "cough_severity" :
     (
         "How severe is your cough?",
+        None,
         (
             "Mild",
             "cough(mild)"
@@ -153,22 +160,25 @@ inquiries = {
         )
     ),
 
-    "cough_kind" : 
+    "cough_kind" :
     (
         "What kind of cough do you have?",
+        "A productive cough involves mucus, whereas a dry cough does not.",
         (
             "Dry",
             "cough(dry)"
         ),
         (
-            "productive",
+            "Productive",
             "cough(productive)"
         )
     ),
 
-    "sedative_medication" : 
+    "sedative_medication" :
     (
         "Are you taking a medication that is a sedative?",
+        "A sedative medication has \"Kan het reactievermogen verminderen\"" +
+        " on the box.",
         (
             "Yes",
             "medication(sedative)"
@@ -179,9 +189,11 @@ inquiries = {
         )
     ),
 
-    "antibiotic_medication" : 
+    "antibiotic_medication" :
     (
         "Are you using antibiotics?",
+        "If you are using antibiotics, you cannot take an expectorant cough" +
+        " syrup.",
         (
             "Yes",
             "medication(antibiotic)"
@@ -193,9 +205,10 @@ inquiries = {
     ),
 
     # TODO: asking for age should be more elegant
-    "younger_than_2_years" : 
+    "younger_than_2_years" :
     (
         "Are you under 2 years old?",
+        "Children under 2 years of age cannot take an expectorant cough syrup.",
         (
             "Yes",
             "age(under_2_years)"
@@ -206,9 +219,10 @@ inquiries = {
         )
     ),
 
-    "tested_covid19" : 
+    "tested_covid19" :
     (
         "Have you tested for COVID-19?",
+        None,
         (
             "Yes, the test came back positive",
             "covid(positive)"
@@ -222,7 +236,7 @@ inquiries = {
             "covid(no_test)"
         ),
         (
-            "No, but I have a test scheduled",      # needed? 
+            "No, but I have a test scheduled",      # needed?
             "covid(test_scheduled)"
         )
     )
