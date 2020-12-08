@@ -1,5 +1,5 @@
 %% Declare these predicates as dynamic, i.e. facts with these predicates
-%% may be added
+%% may be added using asserta/1.
 :- dynamic additional_symptoms/1.
 :- dynamic advice/1.
 :- dynamic age/1.
@@ -7,7 +7,7 @@
 :- dynamic cough/1.
 :- dynamic medication/1.
 % TODO: probably needs more still (it returns a permission error static 
-%       procedure of some sort
+%       procedure of some sort, put it here).
 
 %% Dummy facts to 'introduce' the predicates to the knowledge base 
 additional_symptoms(unknown).
@@ -18,7 +18,8 @@ cough(yes).
 medication(unknown).                        
 pregnant(unknown).
 
-%% Rules for which questions to ask
+%% Rules that infer which questions to ask
+
 % TODO: is the negation too much hardcoding? Retracting rules doesn't seem
 %       like an option either
 ask(younger_than_3_months) :-
@@ -28,7 +29,6 @@ ask(younger_than_3_months) :-
 ask(using_ace_inhibitors) :-
     \+ asked(using_ace_inhibitors),
     age(over_3_months).
-    % TODO: is this the correct rule body? should it include cough(yes)?
 
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
@@ -66,8 +66,8 @@ ask(younger_than_2_years) :-
     \+ asked(younger_than_2_years),
     medication(no_antibiotic).
 
-%% Rules for inference
-advice(none).
+%% Rules for inference of advice
+advice(none).                               % dummy fact to introduce advice/1 
 
 advice(physician) :-
     cough(more_than_3_weeks).
