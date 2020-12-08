@@ -10,13 +10,9 @@ frame.pack()
 
 def show_question(inquiry):
     question = inquiry[0]
-    answer1  = inquiry[1]
-    fact1    = inquiry[2]
-    answer2  = inquiry[3]
-    fact2    = inquiry[4]
-    # TODO: needs to also be possible for more than 2 answers
 
     # frame.pack_forget()                     # clear the frame 
+    # TODO: doesn't work
 
     tk.Label(
         frame,
@@ -25,21 +21,16 @@ def show_question(inquiry):
         height  = 3
     ).pack()
 
-    tk.Button(
-        frame,
-        text    = answer1,
-        width   = 20,
-        height  = 3,
-        command = lambda: add_fact(fact1)
-    ).pack()
-
-    tk.Button(
-        frame,
-        text    = answer2,
-        width   = 20,
-        height  = 3,
-        command = lambda: add_fact(fact2)
-    ).pack()
+    for option in inquiry[1:]:
+        answer = option[0]
+        fact = option[1]
+        tk.Button(
+            frame,
+            text    = answer,
+            width   = 20,
+            height  = 3,
+            command = lambda fact = fact: add_fact(fact)
+        ).pack()
 
     window.mainloop()
 

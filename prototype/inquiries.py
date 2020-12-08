@@ -5,69 +5,109 @@
 ## [3] answer 2
 ## [4] the fact that will be put in the knowledge base if answer 2 is chosen
 ## etc.
+# TODO: update this documentation info at the top, it's outdated
 
 inquiries = {
-    "how_long_cough" : (
+
+    "how_long_cough" : 
+    (
         "How long have you had the cough?",
-        "For more than 3 weeks",
-        "cough(more_than_3_weeks)",
-        "For more than 7 days",
-        "cough(more_than_7_days)",
-        "For less than 7 days",
-        "cough(less_than_7_days)"
+        (
+            "For more than 3 weeks",
+            "cough(more_than_3_weeks)"
+        ),
+        (
+            "For more than 7 days",
+            "cough(more_than_7_days)"
+        ),
+        (
+            "For less than 7 days",
+            "cough(less_than_7_days)"
+        )
     ),
     # TODO: does asserta/1 also add the fact if it's already there?
 
-    "younger_than_3_months" : (
+    "younger_than_3_months" : 
+    (
         "Are you under 3 months of age?",
-        "Yes",
-        "age(under_3_months)",
-        "No",
-        "age(over_3_months)"
+        (
+            "Yes",
+            "age(under_3_months)"
+        ),
+        (
+            "No",
+            "age(over_3_months)"
+        )
     ),
 
-    "using_ace_inhibitors" : (
+    "using_ace_inhibitors" :
+    (
         "Are you using ace inhibitors?",
-        "Yes",
-        "medication(ace_inhibitors)",
-        "No",
-        "medication(none)"
+        (
+            "Yes",
+            "medication(ace_inhibitors)"
+        ),
+        (
+            "No",
+            "medication(none)"
+        )
     ),
 
     # TODO: this has a very similar setup to the previous one; is there a way to
     # generalize this?
-    "already_soothing" : (
+    "already_soothing" : 
+    (
         "Are you already using soothing cough syrup against your cough?",
-        "Yes",
-        "medication(soothing_syrup)",
-        "No",
-        "medication(none)"
+        (
+            "Yes",
+            "medication(soothing_syrup)"
+        ),
+        (    "No",
+            "medication(none)"
+        )
         # TODO: should it be more specific than medication(none)?
     ),
 
-    "experiencing_symptoms" : (
+    "experiencing_symptoms" : 
+    (
         "What symptoms are you experiencing?",
-        "Coughing",
-        "cough(yes)",
-        "Blocked nose",
-        "blocked_nose(yes)",                    # dummy fact
-        "Throat ache",
-        "throat_ache(yes)"                      # dummy fact
+        (
+            "Coughing",
+            "cough(yes)"
+        ),
+        (
+            "Blocked nose",
+            "blocked_nose(yes)"
+        ),                    # dummy fact
+        (
+            "Throat ache",
+            "throat_ache(yes)"                      # dummy fact
+        )
     ),
 
-    "additional_symptoms" : (
+    "additional_symptoms" : 
+    (
         "Do you also have other symptoms, such as vomiting or nausea for more than 7 days?",
-        "Yes I am experiencing nausea",
-        "patientadd(is_nauseated)",
-        "Yes I am experiencing vomiting",
-        "patientadd(is_vomiting)",
-        "Yes I am experiencing both",
-        "patientadd(is_all)",
-        "No I am experiencing neither",
-        "patientadd(is_none)"
+        (
+            "Yes I am experiencing nausea",
+            "patientadd(is_nauseated)"
+        ),
+        (
+            "Yes I am experiencing vomiting",
+            "patientadd(is_vomiting)"
+        ),
+        (
+            "Yes I am experiencing both",
+            "patientadd(is_all)"
+        ),
+        (
+            "No I am experiencing neither",
+            "patientadd(is_none)"
+        )
     ),
 
-    #  symptom_length = (
+    #  symptom_length = 
+    #  (
         #  "How long have you been having these symptoms?",
         #  "More than 3 weeks",
         #  "symptomlen(len_more3week)",
@@ -77,74 +117,119 @@ inquiries = {
         #  "symptomlen(len_less1week)"
     #  )
 
-    "is_pregnant" : (
+    "is_pregnant" : 
+    (
         "Are you pregnant?",
-        "Yes",
-        "patient(is_pregnant)",
-        "No",
-        "patient(is_notpregnant)",
-        "Maybe",
-        "Patient(need_pregnancytest)"
+        (
+            "Yes",
+            "patient(is_pregnant)"
+        ),
+        (
+            "No", 
+            "patient(is_notpregnant)"
+        ),
+        (
+            "Maybe",
+            "patient(need_pregnancytest)"
+        )
     ),
 
-    "younger_than_6_years" : (
+    "younger_than_6_years" : 
+    (
         "Are you under 6 years old?",
-        "Yes",
-        "age(under6yearss)",
-        "No",
-        "age(over6years)"
+        (
+            "Yes",
+            "age(under6yearss)"
+        ),
+        (
+            "No",
+            "age(over6years)"
+        )
     ),
 
-    "cough_severity" : (
+    "cough_severity" : 
+    (
         "How severe is your cough?",
-        "Mild",
-        "patient(cough_mild)",
-        "Severe",
-        "patient(cough_severe)"
+        (
+            "Mild",
+            "patient(cough_mild)"
+        ),
+        (
+            "Severe",
+            "patient(cough_severe)"
+        )
     ),
 
-    "cough_kind" : (
+    "cough_kind" : 
+    (
         "What kind of cough do you have?",
-        "Dry",
-        "patient(cough_dry)",
-        "productive",
-        "patient(cough_productive)"
+        (
+            "Dry",
+            "patient(cough_dry)"
+        ),
+        (
+            "productive",
+            "patient(cough_productive)"
+        )
     ),
 
-    "sedative_medication" : (
+    "sedative_medication" : 
+    (
         "Are you taking a medication that is a sedative?",
-        "Yes",
-        "medication(sedative)",
-        "No",
-        "medication(no_sedative)"
+        (
+            "Yes",
+            "medication(sedative)"
+        ),
+        (
+            "No",
+            "medication(no_sedative)"
+        )
     ),
 
-    "antibiotic_medication" : (
+    "antibiotic_medication" : 
+    (
         "Are you using antibiotics?",
-        "Yes",
-        "medication(antibiotic)",
-        "No",
-        "medication(no_antibiotic)"
+        (
+            "Yes",
+            "medication(antibiotic)"
+        ),
+        (
+            "No",
+            "medication(no_antibiotic)"
+        )
     ),
 
-    "younger_than_2_years" : (
+    "younger_than_2_years" : 
+    (
         "Are you under 2 years old?",
-        "Yes",
-        "age(under2years)",
-        "No",
-        "age(over2years)"
+        (
+            "Yes",
+            "age(under2years)"
+        ),
+        (
+            "No",
+            "age(over2years)"
+        )
     ),
 
-    "tested_covid19" : (
+    "tested_covid19" : 
+    (
         "Have you tested for COVID-19?",
-        "Yes, it came back positive",
-        "covid(positive)",
-        "Yes, it came back negative",
-        "covid(negative)",
-        "No",
-        "covid(no_test)",
-        "No, but I have a test scheduled",      # needed? 
-        "covid(test_scheduled)"
+        (
+            "Yes, the test came back positive",
+            "covid(positive)"
+        ),
+        (
+            "Yes, the test came back negative",
+            "covid(negative)"
+        ),
+        (
+            "No, I have not been tested for these symptoms",
+            "covid(no_test)"
+        ),
+        (
+            "No, but I have a test scheduled",      # needed? 
+            "covid(test_scheduled)"
+        )
     )
 }
-

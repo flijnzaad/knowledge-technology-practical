@@ -20,6 +20,7 @@ def ask_question(question):
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
+    print("added fact:", fact)
     pl.asserta(fact)
     ask_question(find_next_question())
 
@@ -27,7 +28,7 @@ def add_fact(fact):
 def find_next_question():
     q = list(pl.query("ask(X)"))
     if q:
-        return q[0]["X"]                      # take the first answer 
+        return q[0]["X"]                    # take the first answer 
 
     # if there are no more questions to ask
     give_advice()
