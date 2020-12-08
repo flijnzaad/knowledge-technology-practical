@@ -52,7 +52,7 @@ def find_advice():
         if answer["X"] == "physician":
             return "You should go see your physician."
         else:
-            return "You should take {}.".format(answer)
+            return "You should take {}.".format(answer["X"])
 
     return None
 
