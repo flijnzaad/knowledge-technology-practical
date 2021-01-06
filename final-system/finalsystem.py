@@ -4,7 +4,7 @@ from inquiries import *
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
-starting_question = "younger_than_3_months"
+starting_question = "which_symptom"
 
 def main():
     ask_question(starting_question)         # starting inquiry

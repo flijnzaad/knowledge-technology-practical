@@ -22,56 +22,33 @@ pregnant(unknown).
 
 %% Rules that infer which questions to ask
 
-% TODO: is the negation too much hardcoding? Retracting rules doesn't seem
-%       like an option either
-ask(temperature_over_38dot5) :-
-    \+ asked(temperature_over_38dot5),
+ask(fever) :-
+    \+ asked(fever),
     throat_ache(yes).
 
-ask(under_6_years) :-
-    \+ asked(under_6_years),
+ask(how_long_throat_ache) :-
+    \+ asked(how_long_throat_ache),
     throat_ache(yes).
-
-ask(throat_ache_over_3_days) :-
-    \+ asked(throatache_over_3_days),
-    age(under_6_years).
-
-ask(under_3_months) :-
-    \+ asked(under_3_months),
-    throat_ache(yes).
-
-ask(only_pain) :-
-    \+ asked(only_pain),
-    throat_ache(yes).
-
 
 %% Rules for inference of advice
 advice(none).                               % dummy fact to introduce advice/1
-                             % dummy fact to introduce advice/1
 
 advice(physician) :-
-    throat_ache(yes),
-    temperature(over_38dot5).
+    fever(yes).
 
 advice(physician) :-
-    throat_ache(yes),
-    age(under_6_years),
-    throat_ache(over_3_days).
+    throat_ache(more_than_7_days)
 
 advice(physician) :-
-    throat_ache(yes),
-    age(under_6_years),
-    throat_ache(over_3_days),
-    temperature(over_38dot5).
+    throat_ache(more_than_3_days),
+    age(under_6_years).
 
+%% Basically "all the other cases": is there a nice way to do that?
+advice('throat pastilles and paracetamol') :-
+    throat_ache(less_than_3_days);
+    throat_ache(more_than_3_days),
+    age(over_6_years).
 
-advice('prescribed paracetamol') :-
-    throat_ache(yes),
-    age(under_3_months).
-
-advice('throat pastilles or painkillers(gurgle paracetamol dissolved in water)') :-
-    throat_ache(yes),
-    only_pain(yes).
 
 
 

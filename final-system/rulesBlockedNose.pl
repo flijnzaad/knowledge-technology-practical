@@ -13,7 +13,6 @@
 longQT_syndrome(unknown).
 age(none).
 asked(none).
-% TODO: change cough(yes) once we start incorporating other symptoms!
 blocked_nose(yes).
 pregnant(unknown).
 tried_decongestant(unknown).
@@ -40,7 +39,7 @@ ask(already_balloon) :-
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
-    blocked_nose(over_2_years).
+    age(over_2_years).
 
 ask(tried_decongestant) :-
     \+ asked(tried_decongestant),
@@ -53,7 +52,6 @@ advice(physician) :-
     blocked_nose(more_than_3_weeks).
 
 advice(physician) :-
-    blocked_nose(yes),
     blocked_nose(less_than_3_weeks),
     age(under_2_years),
 
@@ -88,6 +86,3 @@ advice('a decongestant nose spray') :-
     age(over_2_years),
     longQT_syndrome(no),
     medication(none).
-
-
-

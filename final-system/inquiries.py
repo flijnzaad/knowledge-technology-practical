@@ -5,7 +5,7 @@
 
 inquiries = {
 
-    "experiencing_symptoms" :
+    "which_symptom" :
     (
         "Which symptom is the patient experiencing?",
         None,
@@ -127,18 +127,18 @@ inquiries = {
         "Not all medication is suitable for children.",
         (
             "Yes",
-            "age(under6years)"
+            "age(under_6_years)"
         ),
         (
             "No",
-            "age(over6years)"
+            "age(over_6_years)"
         )
     ),
 
     "cough_severity" :
     (
         "How severe is the patient's cough?",
-        None,
+        "EXPLANATION",
         (
             "Mild",
             "cough(mild)"
@@ -261,7 +261,7 @@ inquiries = {
     "longQT_syndrome":
     (
         "Does the patient have Long QT Syndrome (a heart rhythm condition?)",
-        "Individuals with this syndrome cannot take a decongestant nose spray."
+        "Individuals with this syndrome cannot take a decongestant nose spray.",
         (
             "Yes",
             "longQT_syndrome(yes)"
@@ -284,8 +284,37 @@ inquiries = {
             "No",
             "medication(none)"
         )
+    ),
+
+    "how_long_throat_ache":
+    (
+        "How long has the patient had the throat ache?",
+        "EXPLANATION",
+        (
+            "For more than a week",
+            "throat_ache(more_than_7_days)"
+        ),
+        (
+            "Between 3 and 7 days",
+            "throat_ache(more_than_3_days)"
+        ),
+        (
+            "For less than 3 days",
+            "throat_ache(less_than_3_days)"
+        )
+    ),
+
+    "fever":
+    (
+        "Does the patient have a temperature above 38.5 degrees Celsius?",
+        "A throat ache combined with a fever may be a sign of an infection.",
+        (
+            "Yes",
+            "fever(yes)"
+        ),
+        (
+            "No",
+            "fever(no)"
+        )
     )
-
-    
-
 }
