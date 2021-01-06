@@ -82,6 +82,7 @@ advice(physician) :-
     additional_symptoms(yes).
 
 advice(physician) :-
+    cough(yes),
     medication(ace_inhibitors).
 
 advice('a cough suppressant') :-
@@ -89,9 +90,11 @@ advice('a cough suppressant') :-
     medication(soothing_syrup).
 
 advice('soothing cough syrup') :-
+    cough(yes).
     age(under_6_years).
 
 advice('soothing cough syrup') :-
+    cough(yes).
     pregnant(yes).
 
 advice('soothing cough syrup') :-

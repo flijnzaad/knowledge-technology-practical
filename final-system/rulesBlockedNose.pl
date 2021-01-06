@@ -4,9 +4,8 @@
 :- dynamic advice/1.
 :- dynamic age/1.
 :- dynamic asked/1.
-:- dynamic blockedNose/1.
-:- dynamic breast_fed/1.
-:- dynamic triedDecongestant/1.
+:- dynamic blocked_nose/1.
+:- dynamic tried_decongestant/1.
 % TODO: probably needs more still (it returns a permission error static
 %       procedure of some sort, put it here).
 
@@ -15,105 +14,80 @@ longQT_syndrome(unknown).
 age(none).
 asked(none).
 % TODO: change cough(yes) once we start incorporating other symptoms!
-blockedNose(yes).
-breast_fed(unknown).
+blocked_nose(yes).
 pregnant(unknown).
-triedDecongestant(unknown).
+tried_decongestant(unknown).
 
 %% Rules that infer which questions to ask
 
 % TODO: is the negation too much hardcoding? Retracting rules doesn't seem
 %       like an option either
-ask(more_than_3_weeks) :-
-    \+ asked(more_than_3_weeks),
-    blockedNose(yes).
-
-ask(less_than_3_weeks) :-
-    \+ asked(less_than_3_weeks),
-    blockedNose(yes).
+ask(how_long_blocked_nose) :-
+    \+ asked(how_long_blocked_nose),
+    blocked_nose(yes).
 
 ask(under_2_years) :-
     \+ asked(under_2_years),
-    blockedNose(less_than_3_weeks).
-
-ask(breast_fed) :-
-    \+ asked(breast_fed),
-    age(under_2_years).
+    blocked_nose(less_than_3_weeks).
 
 ask(under_1_year) :-
     \+ asked(under_1_year),
-    breast_fed(no).
+    breastfed(no).
 
-ask(over_1_year) :-
-    \+ asked(over_1_year),
-    breast_fed(no).
-
-
-ask(over_2_years) :-
-    \+ asked(over_2_years),
-    blockedNose(less_than_3_weeks).
+ask(already_balloon) :-
+    \+ asked(already_balloon),
+    age(under_1_year).
 
 ask(longQT_syndrome) :-
-    \+ asked(longQT_syndrom),
-    blockedNose(over_2_years).
+    \+ asked(longQT_syndrome),
+    blocked_nose(over_2_years).
 
 ask(tried_decongestant) :-
     \+ asked(tried_decongestant),
     longQT_syndrome(no).
 
-
-
 %% Rules for inference of advice
 advice(none).                               % dummy fact to introduce advice/1
 
 advice(physician) :-
-    blockedNose(more_than_3_weeks).
+    blocked_nose(more_than_3_weeks).
 
 advice(physician) :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     age(under_2_years),
-    breast_fed(yes).
 
 advice(physician) :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+    blocked_nose(less_than_3_weeks),
     age(under_2_years),
-    breast_fed(no),
     age(over_1_year).
 
-advice('balloon') :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+advice(physician) :-
+    blocked_nose(less_than_3_weeks),
     age(under_2_years),
-    breast_fed(no),
-    age(under_1_year).
+    medication(balloon).
 
-advice('salt/menthol') :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+advice('balloon') :-
+    blocked_nose(less_than_3_weeks),
+    age(under_1_year),
+    medication(none).
+
+advice('a salt/menthol nose spray') :-
+    blocked_nose(less_than_3_weeks),
     age(over_2_years),
     longQT_syndrome(yes).
 
-advice('salt/menthol') :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
-    age(over_2_years),
-    longQT_syndrome(yes).
-
-advice('salt/menthol') :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+advice('a salt/menthol nose spray') :-
+    blocked_nose(less_than_3_weeks),
     age(over_2_years),
     longQT_syndrome(no),
-    triedDecongestant(yes).
+    medication(decongestant).
 
-advice('decongestant') :-
-    blockedNose(yes),
-    blockedNose(less_than_3_weeks),
+advice('a decongestant nose spray') :-
+    blocked_nose(less_than_3_weeks),
     age(over_2_years),
     longQT_syndrome(no),
-    triedDecongestant(no).
+    medication(none).
 
 
 

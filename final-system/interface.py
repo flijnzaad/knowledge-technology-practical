@@ -20,6 +20,10 @@ def show_inquiry(inquiry):
     show_buttons(inquiry)
     window.mainloop()
 
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 def show_question(inquiry):
     question = inquiry[0]
     tk.Label(
@@ -52,10 +56,6 @@ def show_buttons(inquiry):
             height  = buttonheight,
             command = lambda fact = fact: add_fact(fact)
         ).pack()
-
-def clear_frame(frame):
-    for widget in frame.winfo_children():
-        widget.destroy()
 
 def show_advice(advice):
     mainframe.pack_forget()                     # clear the frame
