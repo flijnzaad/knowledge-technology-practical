@@ -6,9 +6,7 @@
 inquiries = {
     "age" :
     (
-        "Please enter the age of the patient.\n" + 
-        "For patients 12 months or older,\n" +
-        "please round down to the nearest year.", # TODO: okay?
+        "What is the age of the patient?",
         "EXPLANATION"
     ),
 
