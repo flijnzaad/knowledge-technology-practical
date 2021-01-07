@@ -7,7 +7,8 @@ pl.consult("rules.pl")                      # load the knowledge base
 starting_question = "which_symptom"
 
 def main():
-    ask_question(starting_question)         # starting inquiry
+    from interface import first_question
+    first_question(inquiries["age"], starting_question)
 
 ## Ask the question via the GUI
 def ask_question(question):

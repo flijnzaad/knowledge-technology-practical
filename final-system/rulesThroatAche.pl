@@ -21,7 +21,6 @@ pregnant(unknown).
 
 
 %% Rules that infer which questions to ask
-
 ask(fever) :-
     \+ asked(fever),
     throat_ache(yes).
@@ -37,7 +36,7 @@ advice(physician) :-
     fever(yes).
 
 advice(physician) :-
-    throat_ache(more_than_7_days)
+    throat_ache(more_than_7_days).
 
 advice(physician) :-
     throat_ache(more_than_3_days),
@@ -48,8 +47,3 @@ advice('throat pastilles and paracetamol') :-
     throat_ache(less_than_3_days);
     throat_ache(more_than_3_days),
     age(over_6_years).
-
-
-
-
-

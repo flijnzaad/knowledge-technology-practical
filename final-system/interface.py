@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter.font import Font
-from finalsystem import add_fact
+from finalsystem import add_fact, ask_question
 
 ## GUI constants
 buttonwidth = 30
@@ -12,6 +12,14 @@ window.geometry("700x300")
 window.title("Pharmacy Help")
 mainframe = tk.Frame(window)
 mainframe.pack()
+
+def first_question(inquiry, starting_question):
+    clear_frame(mainframe)
+    show_question(inquiry)
+    show_explanation(inquiry)
+    show_age_buttons()
+    show_next_button(starting_question)
+    window.mainloop()
 
 def show_inquiry(inquiry):
     clear_frame(mainframe)
@@ -39,11 +47,27 @@ def show_explanation(inquiry):
     if explanation is not None:
         tk.Label(
             mainframe,
-            text    = explanation,
-            font    = Font(size=12),
-            width   = 100,
-            height  = 3,
+            text   = explanation,
+            font   = Font(size=12),
+            width  = 100,
+            height = 3
         ).pack()
+
+def show_age_buttons():
+    var = tk.StringVar()
+    button1 = tk.Radiobutton(
+                text     = "months",
+                variable = var,
+                value    = 1
+              ).pack()
+    button2 = tk.Radiobutton(
+                text     = "years",
+                variable = var,
+                value    = 2
+              ).pack()
+
+def show_next_button(question):
+    print("number")
 
 def show_buttons(inquiry):
     for option in inquiry[2:]:
@@ -58,7 +82,7 @@ def show_buttons(inquiry):
         ).pack()
 
 def show_advice(advice):
-    mainframe.pack_forget()                     # clear the frame
+    mainframe.pack_forget()                 # clear the frame
     text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
                                             # center the label in the frame
     text.place(relx=.5, rely=.5, anchor="center")

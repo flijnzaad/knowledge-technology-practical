@@ -53,7 +53,7 @@ advice(physician) :-
 
 advice(physician) :-
     blocked_nose(less_than_3_weeks),
-    age(under_2_years),
+    age(under_2_years).
 
 advice(physician) :-
     blocked_nose(less_than_3_weeks),
