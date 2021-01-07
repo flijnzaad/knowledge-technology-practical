@@ -1,9 +1,11 @@
 ## an inquiry itself is a tuple of strings, containing:
 ## 0: the question itself
-## 1: (optional) an explanation about why the system asks the question
+## 1: an explanation about why the system asks the question
 ## a tuple for each answer, containing the answer string and corresponding fact
 
 inquiries = {
+
+    # -------------GENERAL QUESTIONS---------------
     "age" :
     (
         "Please enter the age of the patient.\n" + 
@@ -30,6 +32,29 @@ inquiries = {
         )
     ),
 
+    "tested_covid19" :
+    (
+        "Has the patient been tested for COVID-19?",
+        None,
+        (
+            "Yes, the test came back positive",
+            "covid(positive)"
+        ),
+        (
+            "Yes, the test came back negative",
+            "covid(negative)"
+        ),
+        (
+            "No, they have not been tested.",
+            "covid(no_test)"
+        ),
+        (
+            "No, but they have a test scheduled",      # needed?
+            "covid(test_scheduled)"
+        )
+    ),
+
+    # -------------------COUGH--------------------
     "how_long_cough" :
     (
         "How long has the patient had the cough?",
@@ -48,21 +73,6 @@ inquiries = {
         )
     ),
     # TODO: does asserta/1 also add the fact if it's already there?
-
-    "younger_than_3_months" :
-    (
-        "Is the patient under 3 months of age?",
-        "For infants under 3 months, coughing can be a symptom of a life-" +
-        "threatening disease.",
-        (
-            "Yes",
-            "age(under_3_months)"
-        ),
-        (
-            "No",
-            "age(over_3_months)"
-        )
-    ),
 
     "using_ace_inhibitors" :
     (
@@ -128,20 +138,6 @@ inquiries = {
         )
     ),
 
-    "younger_than_6_years" :
-    (
-        "Is the patient under 6 years old?",
-        "Not all medication is suitable for children.",
-        (
-            "Yes",
-            "age(under_6_years)"
-        ),
-        (
-            "No",
-            "age(over_6_years)"
-        )
-    ),
-
     "cough_severity" :
     (
         "How severe is the patient's cough?",
@@ -200,43 +196,7 @@ inquiries = {
         )
     ),
 
-    # TODO: asking for age should be more elegant
-    "younger_than_2_years" :
-    (
-        "Is the patient under 2 years old?",
-        "Children under 2 years of age cannot take an expectorant cough syrup.",
-        (
-            "Yes",
-            "age(under_2_years)"
-        ),
-        (
-            "No",
-            "age(over_2_years)"
-        )
-    ),
-
-    "tested_covid19" :
-    (
-        "Has the patient been tested for COVID-19?",
-        None,
-        (
-            "Yes, the test came back positive",
-            "covid(positive)"
-        ),
-        (
-            "Yes, the test came back negative",
-            "covid(negative)"
-        ),
-        (
-            "No, they have not been tested.",
-            "covid(no_test)"
-        ),
-        (
-            "No, but they have a test scheduled",      # needed?
-            "covid(test_scheduled)"
-        )
-    ),
-
+    # ---------------BLOCKED NOSE------------------
     "how_long_blocked_nose":
     (
         "How long has the patient had the blocked nose?",
@@ -293,6 +253,8 @@ inquiries = {
         )
     ),
 
+
+    # ---------------THROAT ACHE-------------------
     "how_long_throat_ache":
     (
         "How long has the patient had the throat ache?",
