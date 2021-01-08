@@ -87,10 +87,9 @@ def show_buttons(inquiry):
 
 def show_advice(advice):
     mainframe.pack_forget()                 # clear the frame
-    if advice is not None:
-        text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
-                                                # center the label in the frame
-        text.place(relx=.5, rely=.5, anchor="center")
+    text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
+                                            # center the label in the frame
+    text.place(relx=.5, rely=.5, anchor="center")
 
 buttons = [
     tk.Radiobutton(

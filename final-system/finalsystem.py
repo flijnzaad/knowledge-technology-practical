@@ -51,7 +51,7 @@ def find_advice():
         # TODO: this was to avoid the advice "You should take a none.", caused
         # by the dummy fact advice(none). This could probably be less ugly
         for answer in q:
-            if answer["X"] != "none":
+            if answer["X"] is not "none":
                 return formulate_advice(answer["X"])
         return None
 
@@ -61,7 +61,7 @@ def formulate_advice(advice):
     if advice == "physician":
         return "The patient should go see their physician."  
     else :
-        return "The patient should take " + advice + "." 
+        return "The patient should use " + advice + "." 
 
 if __name__ == "__main__":
     main()

@@ -5,12 +5,12 @@
     advice/1,
     age/1,
     asked/1,
-    breastfed/1,
     blocked_nose/1,
     cough/1,
-    fever/1,
     longQT_syndrome/1,
     medication/1,
+    not_tried/1,
+    tried/1,
     throat_ache/1.
 % TODO: probably needs more still (if it returns a permission error static
 %       procedure of some sort, put it here).
@@ -94,6 +94,7 @@ ask(already_balloon) :-
 ask(already_salt_spray) :-
     \+ asked(already_salt_spray),
     blocked_nose(yes),
+    \+ age(under_2_years),
     age(under_6_years).
 
 ask(longQT_syndrome) :-
@@ -137,7 +138,7 @@ advice(physician) :-
 
 advice('a cough suppressant') :-
     cough(mild),
-    medication(soothing_syrup).
+    tried(soothing_syrup).
 
 advice('soothing cough syrup') :-
     cough(yes),
@@ -145,7 +146,7 @@ advice('soothing cough syrup') :-
 
 advice('soothing cough syrup') :-
     cough(yes),
-    pregnant(yes).
+    pregnant(yes).                  % TODO: pregnancy question is never asked
 
 advice('soothing cough syrup') :-
     cough(mild).
@@ -180,23 +181,15 @@ advice('a soothing cough syrup') :-
 advice(physician) :-
     blocked_nose(more_than_3_weeks).
 
-advice(physician) :-
+advice('a bulb syringe in combination with saline spray') :-
     blocked_nose(less_than_3_weeks),
-    age(under_2_years).
-
-advice('balloon') :-
-    blocked_nose(less_than_3_weeks),
-    age(under_1_year),
-    medication(none).
-
-advice(physician) :-
-    blocked_nose(less_than_3_weeks),
-    age(under_2_years).
+    age(under_2_years),
+    not_tried(balloon).
 
 advice(physician) :-
     blocked_nose(less_than_3_weeks),
     age(under_2_years),
-    medication(balloon).
+    tried(balloon).
 
 advice('a salt/menthol nose spray') :-
     blocked_nose(less_than_3_weeks),
@@ -205,7 +198,7 @@ advice('a salt/menthol nose spray') :-
 advice('a salt/menthol nose spray') :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(no),
-    medication(decongestant).
+    tried(decongestant).
 
 advice('a decongestant nose spray') :-
     blocked_nose(less_than_3_weeks),

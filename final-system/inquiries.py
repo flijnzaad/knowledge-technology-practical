@@ -113,11 +113,11 @@ inquiries = {
         None,
         (
             "Yes",
-            "medication(soothing_syrup)"
+            "tried(soothing_syrup)"
         ),
         (
             "No",
-            "medication(none)"
+            "not_tried(soothing_syrup)"
         )
         # TODO: should it be more specific than medication(none)?
     ),
@@ -213,11 +213,11 @@ inquiries = {
         "For infants, bulb syringes and nasal aspirators can be used to \"suck out\" the blockage.",
         (
             "Yes",
-            "medication(balloon)"
+            "tried(balloon)"
         ),
         (
             "No",
-            "medication(none)"
+            "not_tried(balloon)"
         )
     ),
 
@@ -241,11 +241,11 @@ inquiries = {
         None,
         (
             "Yes",
-            "medication(decongestant)"
+            "tried(decongestant)"
         ),
         (
             "No",
-            "medication(none)"
+            "not_tried(decongestant)"
         )
     ),
 
@@ -255,11 +255,11 @@ inquiries = {
         None,
         (
             "Yes",
-            "medication(salt_spray)"
+            "tried(salt_spray)"
         ),
         (
             "No",
-            "medication(none)"
+            "not_tried(salt_spray)"
         )
     ),
 
