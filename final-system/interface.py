@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter.font import Font
-from finalsystem import add_fact, ask_question, starting_question
+from finalsystem import add_fact
 
 ## GUI constants
 buttonwidth = 30
@@ -82,7 +82,7 @@ def show_buttons(inquiry):
             text    = answer,
             width   = buttonwidth,
             height  = buttonheight,
-            command = lambda: add_fact(fact)
+            command = lambda fact = fact: add_fact(fact)
         ).pack()
 
 def show_advice(advice):

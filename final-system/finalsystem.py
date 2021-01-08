@@ -16,9 +16,8 @@ def ask_question(question):
 
     pl.asserta("asked({})".format(question))# the question is asked
 
-    inquiry = inquiries[question]
-    if inquiry is not None:
-        show_inquiry(inquiry)
+    if question is not None:
+        show_inquiry(inquiries[question])
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
@@ -41,7 +40,8 @@ def find_next_question():
 def give_advice():
     from interface import show_advice
     advice = find_advice()
-    show_advice(advice)
+    if advice is not None:
+        show_advice(advice)
 
 ## Make the inference, return the associated advice
 def find_advice():
@@ -58,7 +58,10 @@ def find_advice():
     return None
 
 def formulate_advice(advice):
-    return "You should go see your physician." if advice == "physician" else "You should take {}.".format(answer["X"])
+    if advice == "physician":
+        return "The patient should go see their physician."  
+    else :
+        return "The patient should take " + advice + "." 
 
 if __name__ == "__main__":
     main()

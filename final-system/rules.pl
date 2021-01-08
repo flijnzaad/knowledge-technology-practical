@@ -42,11 +42,6 @@ age(under_1_year) :-
 % asked(none).
 %% COUGHING
 
-ask(using_ace_inhibitors) :-
-    \+ asked(using_ace_inhibitors),
-    cough(yes),
-    \+ age(under_3_months).
-
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
     cough(yes),
@@ -59,7 +54,7 @@ ask(additional_symptoms_cough) :-
 ask(using_ace_inhibitors) :-
     \+ asked(using_ace_inhibitors),
     cough(yes),
-    age(over_3_months).
+    \+ age(under_3_months).
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
