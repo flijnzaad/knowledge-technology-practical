@@ -52,11 +52,30 @@ inquiries = {
         )
     ),
 
+    "is_pregnant" :
+    (
+        "Is the patient pregnant?",
+        "Some medication can have an (unwanted) effect on unborn babies, so not " +
+        "all medication is suitable for people who are pregnant.",
+        (
+            "Yes",
+            "patient(is_pregnant)"
+        ),
+        (
+            "No",
+            "patient(is_not_pregnant)"
+        ),
+        (
+            "Maybe",
+            "patient(need_pregnancy_test)"
+        )
+    ),
+
     # -------------------COUGH--------------------
     "how_long_cough" :
     (
         "How long has the patient had the cough?",
-        "EXPLANATION",
+        "If the patient has had the cough for a long time, they might have an underlying infection.",
         (
             "For more than 3 weeks",
             "cough(more_than_3_weeks)"
@@ -74,7 +93,7 @@ inquiries = {
 
     "using_ace_inhibitors" :
     (
-        "Is the patient using ACE inhibitors, such as ...? (give examples)",
+        "Is the patient using ACE inhibitors, such as enalapril or lisinopril?",
         "Coughing can be a side effect of this group of medications.",
         (
             "Yes",
@@ -103,9 +122,9 @@ inquiries = {
         # TODO: should it be more specific than medication(none)?
     ),
 
-    "additional_symptoms" :
+    "additional_symptoms_cough" :
     (
-        "Does the patient also experience other symptoms, such as higher temperature and general malaise?",
+        "Is the patient also experiencing other symptoms, such as a higher temperature and general malaise?",
         "Additional symptoms may be a sign of an infection.",
         (
             "Yes",
@@ -117,29 +136,10 @@ inquiries = {
         )
     ),
 
-    "is_pregnant" :
-    (
-        "Is the patient pregnant?",
-        "Some medication can have an (unwanted) effect on unborn babies, so not " +
-        "all medication is suitable for people who are pregnant.",
-        (
-            "Yes",
-            "patient(is_pregnant)"
-        ),
-        (
-            "No",
-            "patient(is_not_pregnant)"
-        ),
-        (
-            "Maybe",
-            "patient(need_pregnancy_test)"
-        )
-    ),
-
     "cough_severity" :
     (
         "How severe is the patient's cough?",
-        "EXPLANATION",
+        "The severity of a cough is based on both the frequency and the intensity of the cough.",
         (
             "Mild",
             "cough(mild)"
@@ -167,8 +167,7 @@ inquiries = {
     "sedative_medication" :
     (
         "Is the patient taking a medication that is a sedative?",
-        "A sedative medication has \"Kan het reactievermogen verminderen\"" +
-        " on the box.",
+        "Sedative medications are those that may reduce alertness.",
         (
             "Yes",
             "medication(sedative)"
@@ -181,9 +180,8 @@ inquiries = {
 
     "antibiotic_medication" :
     (
-        "Are the patient using antibiotics?",
-        "If the patient are using antibiotics, you cannot take an expectorant cough" +
-        " syrup.",
+        "Is the patient using antibiotics?",
+        "If the patient is using antibiotics, they cannot take an expectorant cough syrup.",
         (
             "Yes",
             "medication(antibiotic)"
@@ -195,7 +193,7 @@ inquiries = {
     ),
 
     # ---------------BLOCKED NOSE------------------
-    "how_long_blocked_nose":
+    "how_long_blocked_nose" :
     (
         "How long has the patient had the blocked nose?",
         "If the patient has had the blocked nose for a long time, they might have a sinus infection.",
@@ -209,10 +207,10 @@ inquiries = {
         )
     ),
 
-    "already_balloon":
+    "already_balloon" :
     (
-        "Has the patient already tried using a balloon to remedy the blocked nose?",
-        "EXPLANATION about the balloon",
+        "Has the patient already tried using a bulb syringe or nasal aspirator to remedy the blocked nose?",
+        "For infants, bulb syringes and nasal aspirators can be used to \"suck out\" the blockage.",
         (
             "Yes",
             "medication(balloon)"
@@ -223,7 +221,7 @@ inquiries = {
         )
     ),
 
-    "longQT_syndrome":
+    "longQT_syndrome" :
     (
         "Does the patient have Long QT Syndrome (a heart rhythm condition?)",
         "Individuals with this syndrome cannot take a decongestant nose spray.",
@@ -237,7 +235,7 @@ inquiries = {
         )
     ),
 
-    "already_decongestant":
+    "already_decongestant" :
     (
         "Has the patient already tried using a decongestant nose spray?",
         None,
@@ -251,14 +249,27 @@ inquiries = {
         )
     ),
 
+    "already_salt_spray" :
+    (
+        "Has the patient already tried using a saline nose spray or drops?",
+        None,
+        (
+            "Yes",
+            "medication(salt_spray)"
+        ),
+        (
+            "No",
+            "medication(none)"
+        )
+    ),
 
     # ---------------THROAT ACHE-------------------
-    "how_long_throat_ache":
+    "how_long_throat_ache" :
     (
         "How long has the patient had the throat ache?",
-        "EXPLANATION",
+        "If the patient has had the cough for a long time, they might have an underlying infection.",
         (
-            "For more than a week",
+            "For more than 7 days",
             "throat_ache(more_than_7_days)"
         ),
         (
@@ -271,17 +282,17 @@ inquiries = {
         )
     ),
 
-    "fever":
+    "additional_symptoms_throat_ache" :
     (
-        "Does the patient have a temperature above 38.5 degrees Celsius?",
-        "A throat ache combined with a fever may be a sign of an infection.",
+        "Is the patient also experiencing other symptoms, such as a fever or an ear ache?",
+        "A fever may be a sign of a throat infection, and an ear ache may be the sign of an ear infection.",
         (
             "Yes",
-            "fever(yes)"
+            "additional_symptoms(yes)"
         ),
         (
             "No",
-            "fever(no)"
+            "additional_symptoms(no)"
         )
     )
 }

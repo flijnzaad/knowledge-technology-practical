@@ -20,9 +20,6 @@ additional_symptoms(unknown).
 medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
-temperature(unknown).
-only_pain(yes).
-fever(unknown).
 
 %% Commonly known facts about age.
 age(under_6_years) :-
@@ -51,9 +48,14 @@ ask(how_long_cough) :-
     cough(yes),
     medication(none).
 
-ask(additional_symptoms) :-
-    \+ asked(additional_symptoms),
+ask(additional_symptoms_cough) :-
+    \+ asked(additional_symptoms_cough),
     cough(more_than_7_days).
+
+ask(using_ace_inhibitors) :-
+    \+ asked(using_ace_inhibitors),
+    cough(yes),
+    age(over_3_months).
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
@@ -88,7 +90,11 @@ ask(how_long_blocked_nose) :-
 ask(already_balloon) :-
     \+ asked(already_balloon),
     blocked_nose(less_than_3_weeks),
-    age(under_1_year).
+    age(under_2_years).
+
+ask(already_salt_spray) :-
+    \+ asked(already_salt_spray),
+    age(under_6_years).
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
@@ -99,13 +105,14 @@ ask(already_decongestant) :-
     longQT_syndrome(no).
 
 %% THROAT ACHE
-ask(fever) :-
-    \+ asked(fever),
-    throat_ache(yes).
 
 ask(how_long_throat_ache) :-
     \+ asked(how_long_throat_ache),
     throat_ache(yes).
+
+ask(additional_symptoms_throat_ache) :-
+    \+ asked(additional_symptoms_throat_ache),
+    throat_ache(less_than_7_days).
 
 %% ----------------------------------------------------
 %%           Rules for inference of advice
@@ -205,11 +212,10 @@ advice('a decongestant nose spray') :-
 
 %% THROAT ACHE
 advice(physician) :-
-    throat_ache(yes),
-    fever(yes).
+    throat_ache(more_than_7_days).
 
 advice(physician) :-
-    throat_ache(more_than_7_days).
+    additional_symptoms(yes).
 
 advice(physician) :-
     throat_ache(more_than_3_days),
