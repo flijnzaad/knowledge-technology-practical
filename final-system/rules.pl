@@ -19,34 +19,25 @@ additional_symptoms(unknown).
 medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
-
-%% Dummy facts to 'introduce' the predicates to the knowledge base
-temperature(unknown).
-only_pain(yes)
-age(none).
-asked(none).
-fever(unknown).
 advice(none).
 
 %% ----------------------------------------------------
 %%       Rules that infer which questions to ask          
 %% ----------------------------------------------------
 %% COUGHING
-ask(younger_than_3_months) :-
-    \+ asked(younger_than_3_months),
-    cough(yes).
+ask(how_long_cough) :-
+    \+ asked(how_long_cough),
+    cough(yes),
+    medication(none).
+
+ask(additional_symptoms_cough) :-
+    \+ asked(additional_symptoms_cough),
+    cough(more_than_7_days).
 
 ask(using_ace_inhibitors) :-
     \+ asked(using_ace_inhibitors),
+    cough(yes),
     age(over_3_months).
-
-ask(how_long_cough) :-
-    \+ asked(how_long_cough),
-    medication(none).
-
-ask(additional_symptoms) :-
-    \+ asked(additional_symptoms),
-    cough(more_than_7_days).
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
@@ -72,26 +63,18 @@ ask(antibiotic_medication) :-
     \+ asked(antibiotic_medication),
     cough(productive).
 
-ask(younger_than_2_years) :-
-    \+ asked(younger_than_2_years),
-    medication(no_antibiotic).
-
 %% BLOCKED NOSE
 ask(how_long_blocked_nose) :-
     \+ asked(how_long_blocked_nose),
     blocked_nose(yes).
 
-ask(under_2_years) :-
-    \+ asked(under_2_years),
-    blocked_nose(less_than_3_weeks).
-
-ask(under_1_year) :-
-    \+ asked(under_1_year),
-    breastfed(no).
-
 ask(already_balloon) :-
     \+ asked(already_balloon),
-    age(under_1_year).
+    age(under_2_year).
+
+ask(already_salt_spray) :-
+    \+ asked(already_salt_spray),
+    age(under_6_years).
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
@@ -102,13 +85,14 @@ ask(already_decongestant) :-
     longQT_syndrome(no).
 
 %% THROAT ACHE
-ask(fever) :-
-    \+ asked(fever),
-    throat_ache(yes).
 
 ask(how_long_throat_ache) :-
     \+ asked(how_long_throat_ache),
     throat_ache(yes).
+
+ask(additional_symptoms_throat_ache) :-
+    \+ asked(additional_symptoms_throat_ache),
+    throat_ache(less_than_7_days).
 
 %% ----------------------------------------------------
 %%           Rules for inference of advice
@@ -212,10 +196,10 @@ advice('a decongestant nose spray') :-
 
 %% THROAT ACHE
 advice(physician) :-
-    fever(yes).
+    throat_ache(more_than_7_days).
 
 advice(physician) :-
-    throat_ache(more_than_7_days).
+    additional_symptoms(yes).
 
 advice(physician) :-
     throat_ache(more_than_3_days),
