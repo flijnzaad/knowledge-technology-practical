@@ -8,7 +8,7 @@ starting_question = "which_symptom"
 
 def main():
     from interface import first_question
-    first_question(inquiries["age"], starting_question)
+    first_question(inquiries["age"])
 
 ## Ask the question via the GUI
 def ask_question(question):
@@ -28,6 +28,7 @@ def add_fact(fact):
 ## Determine what the next question should be
 def find_next_question():
     q = list(pl.query("ask(X)"))
+    print(q)
     if q:
         return q[0]["X"]                    # take the first answer
 
@@ -49,13 +50,13 @@ def find_advice():
         # by the dummy fact advice(none). This could probably be less ugly
         for answer in q:
             if answer["X"] != "none":
-                break
-        if answer["X"] == "physician":
-            return "You should go see your physician."
-        else:
-            return "You should take {}.".format(answer["X"])
+                return formulate_advice(answer["X"])
+        return None
 
     return None
+
+def formulate_advice(advice):
+    return "You should go see your physician." if advice == "physician" else "You should take {}.".format(answer["X"])
 
 if __name__ == "__main__":
     main()

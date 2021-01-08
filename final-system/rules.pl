@@ -1,47 +1,54 @@
 %% Declare these predicates as dynamic, i.e. facts with these predicates
 %% may be added using asserta/1.
-:- dynamic additional_symptoms/1.
-:- dynamic advice/1.
-:- dynamic age/1.
-:- dynamic asked/1.
-:- dynamic cough/1.
-:- dynamic blocked_nose/1.
-:- dynamic throat_ache/1.
-:- dynamic medication/1.
-:- dynamic longQT_syndrome/1.
-:- dynamic fever/1.
-% TODO: probably needs more still (it returns a permission error static
+:- dynamic 
+    additional_symptoms/1, 
+    advice/1,
+    age/1,
+    asked/1,
+    breastfed/1,
+    blocked_nose/1,
+    cough/1,
+    fever/1,
+    longQT_syndrome/1,
+    medication/1,
+    throat_ache/1.
+% TODO: probably needs more still (if it returns a permission error static
 %       procedure of some sort, put it here).
 
 %% Dummy facts to 'introduce' the predicates to the knowledge base
-asked(none).
 additional_symptoms(unknown).
 medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
-
-%% Dummy facts to 'introduce' the predicates to the knowledge base
 temperature(unknown).
 only_pain(yes).
-age(none).
-asked(none).
 fever(unknown).
-advice(none).
+
+%% Commonly known facts about age.
+age(under_6_years) :-
+    age(under_2_years).
+
+age(under_2_years) :-
+    age(under_1_year).
+
+age(under_1_year) :-
+    age(under_3_months).
 
 %% ----------------------------------------------------
 %%       Rules that infer which questions to ask          
 %% ----------------------------------------------------
+
+% asked(none).
 %% COUGHING
-ask(younger_than_3_months) :-
-    \+ asked(younger_than_3_months),
-    cough(yes).
 
 ask(using_ace_inhibitors) :-
     \+ asked(using_ace_inhibitors),
-    age(over_3_months).
+    cough(yes),
+    \+ age(under_3_months).
 
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
+    cough(yes),
     medication(none).
 
 ask(additional_symptoms) :-
@@ -50,6 +57,7 @@ ask(additional_symptoms) :-
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
+    cough(yes),
     additional_symptoms(no).
 
 ask(cough_severity) :-
@@ -72,30 +80,19 @@ ask(antibiotic_medication) :-
     \+ asked(antibiotic_medication),
     cough(productive).
 
-ask(younger_than_2_years) :-
-    \+ asked(younger_than_2_years),
-    medication(no_antibiotic).
-
 %% BLOCKED NOSE
 ask(how_long_blocked_nose) :-
     \+ asked(how_long_blocked_nose),
     blocked_nose(yes).
 
-ask(under_2_years) :-
-    \+ asked(under_2_years),
-    blocked_nose(less_than_3_weeks).
-
-ask(under_1_year) :-
-    \+ asked(under_1_year),
-    breastfed(no).
-
 ask(already_balloon) :-
     \+ asked(already_balloon),
+    blocked_nose(less_than_3_weeks),
     age(under_1_year).
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
-    age(over_2_years).
+    \+ age(under_2_years).
 
 ask(already_decongestant) :-
     \+ asked(tried_decongestant),
@@ -158,7 +155,7 @@ advice('an expectorant cough syrup') :-
     cough(severe),
     cough(productive),
     medication(no_antibiotic),
-    age(over_2_years).
+    \+ age(under_2_years).
 
 advice('a soothing cough syrup') :-
     cough(severe),
@@ -178,40 +175,37 @@ advice(physician) :-
     blocked_nose(less_than_3_weeks),
     age(under_2_years).
 
+advice('balloon') :-
+    blocked_nose(less_than_3_weeks),
+    age(under_1_year),
+    medication(none).
+
 advice(physician) :-
     blocked_nose(less_than_3_weeks),
-    age(under_2_years),
-    age(over_1_year).
+    age(under_2_years).
 
 advice(physician) :-
     blocked_nose(less_than_3_weeks),
     age(under_2_years),
     medication(balloon).
 
-advice('balloon') :-
-    blocked_nose(less_than_3_weeks),
-    age(under_1_year),
-    medication(none).
-
 advice('a salt/menthol nose spray') :-
     blocked_nose(less_than_3_weeks),
-    age(over_2_years),
     longQT_syndrome(yes).
 
 advice('a salt/menthol nose spray') :-
     blocked_nose(less_than_3_weeks),
-    age(over_2_years),
     longQT_syndrome(no),
     medication(decongestant).
 
 advice('a decongestant nose spray') :-
     blocked_nose(less_than_3_weeks),
-    age(over_2_years),
     longQT_syndrome(no),
     medication(none).
 
 %% THROAT ACHE
 advice(physician) :-
+    throat_ache(yes),
     fever(yes).
 
 advice(physician) :-
@@ -227,4 +221,7 @@ advice('throat pastilles and paracetamol') :-
 
 advice('throat pastilles and paracetamol') :-
     throat_ache(more_than_3_days),
-    age(over_6_years).
+    age(older_than_6_years).
+
+
+advice(none).

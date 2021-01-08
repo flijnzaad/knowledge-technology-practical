@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter.font import Font
-from finalsystem import add_fact, ask_question
+from finalsystem import add_fact, ask_question, starting_question
 
 ## GUI constants
 buttonwidth = 30
@@ -14,14 +14,12 @@ mainframe = tk.Frame(window)
 mainframe.pack()
 age = tk.StringVar()
 
-def first_question(inquiry, starting_question):
+def first_question(inquiry):
     clear_frame(mainframe)
     show_question(inquiry)
     show_explanation(inquiry)
     show_age_buttons()
-    show_next_button(starting_question)
-    for i in mainframe.winfo_children():
-        print(i.winfo_class())
+    show_next_button()
     window.mainloop()
 
 def show_inquiry(inquiry):
@@ -29,8 +27,6 @@ def show_inquiry(inquiry):
     show_question(inquiry)
     show_explanation(inquiry)
     show_buttons(inquiry)
-    for i in mainframe.winfo_children():
-        print(i.winfo_class())
     window.mainloop()
 
 def clear_frame(frame):
@@ -59,47 +55,24 @@ def show_explanation(inquiry):
         ).pack()
 
 def show_age_buttons():
-    button1 = tk.Radiobutton(
-        text     = "0 - 3 months",
-        variable = age,
-        value    = "age(under_3_months)"
-    )
-    button1.pack( anchor = tk.W )
-    button1.select()
+    buttons[0].select()
+    for button in buttons:
+        button.pack( anchor = tk.W )
 
-    tk.Radiobutton(
-        text     = "3 - 12 months",
-        variable = age,
-        value    = "age(under_1_year)"
-    ).pack( anchor = tk.W )
-    tk.Radiobutton(
-        text     = "1 - 2 years",
-        variable = age,
-        value    = "age(under_2_years)"
-    ).pack( anchor = tk.W )
-    tk.Radiobutton(
-        text     = "2 - 6 years",
-        variable = age,
-        value    = "age(under_6_years)"
-    ).pack( anchor = tk.W )
-    tk.Radiobutton(
-        text     = "older than 6 years",
-        variable = age,
-        value    = "age(no_importance)"
-    ).pack( anchor = tk.W )
-
-def show_next_button(question):
+def show_next_button():
     tk.Button(
         mainframe,
         text    = "Next",
         width   = 5,
         height  = 1,
-        command = lambda: callback(question)
+        command = callback
     ).pack( anchor = tk.SE )
 
-def callback(question):
+def callback():
+    for button in buttons:
+        button.pack_forget()
     add_fact(age.get())
-    ask_question(question)
+    ask_question(starting_question)
 
 def show_buttons(inquiry):
     for option in inquiry[2:]:
@@ -115,6 +88,35 @@ def show_buttons(inquiry):
 
 def show_advice(advice):
     mainframe.pack_forget()                 # clear the frame
-    text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
-                                            # center the label in the frame
-    text.place(relx=.5, rely=.5, anchor="center")
+    if advice is not None:
+        text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
+                                                # center the label in the frame
+        text.place(relx=.5, rely=.5, anchor="center")
+
+buttons = [
+    tk.Radiobutton(
+        text     = "0 - 3 months",
+        variable = age,
+        value    = "age(under_3_months)"
+    ),
+    tk.Radiobutton(
+        text     = "3 - 12 months",
+        variable = age,
+        value    = "age(under_1_year)"
+    ),
+    tk.Radiobutton(
+        text     = "1 - 2 years",
+        variable = age,
+        value    = "age(under_2_years)"
+    ),
+    tk.Radiobutton(
+        text     = "2 - 6 years",
+        variable = age,
+        value    = "age(under_6_years)"
+    ),
+    tk.Radiobutton(
+        text     = "older than 6 years",
+        variable = age,
+        value    = "age(older_than_6_years)"
+    )
+]
