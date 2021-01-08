@@ -14,7 +14,7 @@ mainframe = tk.Frame(window)
 mainframe.pack()
 age = tk.StringVar()
 
-def first_question(inquiry):
+def age_question(inquiry):
     clear_frame(mainframe)
     show_question(inquiry)
     show_explanation(inquiry)
@@ -72,7 +72,6 @@ def callback():
     for button in buttons:
         button.pack_forget()
     add_fact(age.get())
-    ask_question(starting_question)
 
 def show_buttons(inquiry):
     for option in inquiry[2:]:

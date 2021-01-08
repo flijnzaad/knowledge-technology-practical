@@ -21,6 +21,10 @@ medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
 
+% Ask the first question (after age question).
+ask(which_symptom) :-
+    \+ asked(which_symptom).
+
 %% Commonly known facts about age.
 age(under_6_years) :-
     age(under_2_years).
@@ -94,14 +98,17 @@ ask(already_balloon) :-
 
 ask(already_salt_spray) :-
     \+ asked(already_salt_spray),
+    blocked_nose(yes),
     age(under_6_years).
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
+    blocked_nose(yes),
     \+ age(under_2_years).
 
 ask(already_decongestant) :-
     \+ asked(tried_decongestant),
+    blocked_nose(yes),
     longQT_syndrome(no).
 
 %% THROAT ACHE

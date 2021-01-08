@@ -7,8 +7,8 @@ pl.consult("rules.pl")                      # load the knowledge base
 starting_question = "which_symptom"
 
 def main():
-    from interface import first_question
-    first_question(inquiries["age"])
+    from interface import age_question
+    age_question(inquiries["age"])
 
 ## Ask the question via the GUI
 def ask_question(question):
@@ -16,8 +16,9 @@ def ask_question(question):
 
     pl.asserta("asked({})".format(question))# the question is asked
 
-    if question is not None:
-        show_inquiry(inquiries[question])
+    inquiry = inquiries[question]
+    if inquiry is not None:
+        show_inquiry(inquiry)
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
@@ -34,6 +35,7 @@ def find_next_question():
 
     # if there are no more questions to ask
     give_advice()
+    return None
 
 ## Give the advice via the GUI
 def give_advice():

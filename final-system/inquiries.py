@@ -9,7 +9,7 @@ inquiries = {
     "age" :
     (
         "What is the age of the patient?",
-        "EXPLANATION"
+        "Children and infants cannot take the same medications as adults."
     ),
 
     "which_symptom" :
@@ -267,7 +267,7 @@ inquiries = {
     "how_long_throat_ache" :
     (
         "How long has the patient had the throat ache?",
-        "If the patient has had the cough for a long time, they might have an underlying infection.",
+        "If the patient has had the throat ache for a long time, they might have an underlying infection.",
         (
             "For more than 7 days",
             "throat_ache(more_than_7_days)"
