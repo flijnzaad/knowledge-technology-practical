@@ -22,7 +22,7 @@ longQT_syndrome(unknown).
 
 %% Dummy facts to 'introduce' the predicates to the knowledge base
 temperature(unknown).
-only_pain(yes)
+only_pain(yes).
 age(none).
 asked(none).
 fever(unknown).
@@ -225,6 +225,6 @@ advice(physician) :-
 advice('throat pastilles and paracetamol') :-
     throat_ache(less_than_3_days).
 
-advice('throat pastilles and paracetamol')
+advice('throat pastilles and paracetamol') :-
     throat_ache(more_than_3_days),
     age(over_6_years).
