@@ -19,6 +19,16 @@ additional_symptoms(unknown).
 medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
+<<<<<<< HEAD
+=======
+
+%% Dummy facts to 'introduce' the predicates to the knowledge base
+temperature(unknown).
+only_pain(yes).
+age(none).
+asked(none).
+fever(unknown).
+>>>>>>> 52e00155ebbf70f45f7728a69339cd51350a74e1
 advice(none).
 
 %% ----------------------------------------------------
@@ -118,11 +128,11 @@ advice('a cough suppressant') :-
     medication(soothing_syrup).
 
 advice('soothing cough syrup') :-
-    cough(yes).
+    cough(yes),
     age(under_6_years).
 
 advice('soothing cough syrup') :-
-    cough(yes).
+    cough(yes),
     pregnant(yes).
 
 advice('soothing cough syrup') :-
@@ -209,6 +219,6 @@ advice(physician) :-
 advice('throat pastilles and paracetamol') :-
     throat_ache(less_than_3_days).
 
-advice('throat pastilles and paracetamol')
+advice('throat pastilles and paracetamol') :-
     throat_ache(more_than_3_days),
     age(over_6_years).
