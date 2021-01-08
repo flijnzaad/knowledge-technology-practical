@@ -134,11 +134,11 @@ advice('a cough suppressant') :-
     medication(soothing_syrup).
 
 advice('soothing cough syrup') :-
-    cough(yes).
+    cough(yes),
     age(under_6_years).
 
 advice('soothing cough syrup') :-
-    cough(yes).
+    cough(yes),
     pregnant(yes).
 
 advice('soothing cough syrup') :-
