@@ -12,6 +12,7 @@ window_height = 500
 window = tk.Tk()
 dimensions = str(window_width) + 'x' + str(window_height)
 window.geometry(dimensions)
+window.resizable(0, 0)
 window.title("Pharmacy Help")
 mainframe = tk.Frame(window)
 mainframe.pack()
@@ -70,5 +71,3 @@ def show_advice(advice):
         text = "ADVICE: " + advice, 
         font = Font(size = 14)
     ).pack( anchor = tk.N )
-                                            # center the label in the frame
-    # text.place(relx= .5, rely= .5, anchor = "center" )
