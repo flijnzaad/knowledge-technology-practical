@@ -137,8 +137,13 @@ advice(physician) :-
     medication(ace_inhibitors).
 
 advice('a cough suppressant') :-
+    medication(no_sedative),        % TODO: look at this
     cough(mild),
     tried(soothing_syrup).
+
+% advice('wait or physician') :-      % TODO
+%     tried(soothing_syrup),
+%     pregnant or child.
 
 advice('soothing cough syrup') :-
     cough(yes),
@@ -149,6 +154,7 @@ advice('soothing cough syrup') :-
     pregnant(yes).                  % TODO: pregnancy question is never asked
 
 advice('soothing cough syrup') :-
+    not_tried(soothing_syrup),
     cough(mild).
 
 advice('a cough suppressant') :-
@@ -160,6 +166,10 @@ advice('a soothing cough syrup') :-
     cough(severe),
     cough(dry),
     medication(sedative).
+
+% generally, if already tried something and symptoms are severe, just go to doctor
+
+% productive: soothing syrup (or nothing). persistent: expectorant syrup. 
 
 advice('an expectorant cough syrup') :-
     cough(severe),
@@ -191,19 +201,20 @@ advice(physician) :-
     age(under_2_years),
     tried(balloon).
 
-advice('a salt/menthol nose spray') :-
+advice('a salt (with menthol) nose spray') :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(yes).
 
 advice('a salt/menthol nose spray') :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(no),
-    tried(decongestant).
+    tried(decongestant).                % TODO: 5-7 days
 
 advice('a decongestant nose spray') :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(no),
-    medication(none).
+    \+ age(under_2_years),              % TODO: 2-6 years first salt, then decongestant
+    not_tried(decongestant).
 
 %% THROAT ACHE
 advice(physician) :-
@@ -216,7 +227,6 @@ advice(physician) :-
     throat_ache(more_than_3_days),
     age(under_6_years).
 
-%% Basically "all the other cases": is there a nice way to do that?
 advice('throat pastilles and paracetamol') :-
     throat_ache(less_than_3_days).
 
