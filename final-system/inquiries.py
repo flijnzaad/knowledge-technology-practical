@@ -68,23 +68,23 @@ inquiries = {
         )
     ),
 
-    "is_pregnant" :
+    "pregnancy" :
     (
         "Is the patient pregnant?",
         "Some medication can have an (unwanted) effect on unborn babies, so not " +
         "all medication is suitable for people who are pregnant.",
         (
             "Yes",
-            "patient(is_pregnant)"
+            "pregnant(yes)"
         ),
         (
             "No",
-            "patient(is_not_pregnant)"
+            "pregnant(no)"
         ),
-        (
-            "Maybe",
-            "patient(need_pregnancy_test)"
-        )
+        # (
+        #     "Maybe",
+        #     "patient(need_pregnancy_test)"
+        # )
     ),
 
     # -------------------COUGH--------------------

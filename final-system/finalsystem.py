@@ -37,29 +37,24 @@ def find_next_question():
 
 ## Give the advice via the GUI
 def give_advice():
-    from interface import show_advice
     advice = find_advice()
     if advice is not None:
+        from interface import show_advice
         show_advice(advice)
 
 ## Make the inference, return the associated advice
 def find_advice():
     q = list(pl.query("advice(X)"))
-    if q:
-        print(q)                            # debugging purposes
-        # TODO: this was to avoid the advice "You should take a none.", caused
-        # by the dummy fact advice(none). This could probably be less ugly
-        for answer in q:
-            if answer["X"] != "none":
-                return formulate_advice(answer["X"])
-        return None
-
+    print(q)                                # debugging purposes
+    for answer in q:
+        if answer["X"] != "none":
+            return formulate_advice(answer["X"])
     return None
 
 def formulate_advice(advice):
     if advice == "physician":
         return "The patient should go see their physician."  
-    else :
+    else:
         return "The patient should use " + advice + "." 
 
 if __name__ == "__main__":
