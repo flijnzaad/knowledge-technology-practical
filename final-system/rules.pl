@@ -21,6 +21,13 @@ medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
 
+%% Commonly known facts about age.
+age(under_6_years) :-
+    age(under_2_years).
+
+age(under_2_years) :-
+    age(under_3_months).
+
 % Ask the first question (after age question).
 ask(pregnancy) :-
     \+ asked(pregnancy),
@@ -29,13 +36,6 @@ ask(pregnancy) :-
 % Standard second question.
 ask(which_symptom) :-
     \+ asked(which_symptom).
-
-%% Commonly known facts about age.
-age(under_6_years) :-
-    age(under_2_years).
-
-age(under_2_years) :-
-    age(under_3_months).
 
 %% ----------------------------------------------------
 %%       Rules that infer which questions to ask          
@@ -145,7 +145,7 @@ advice('soothing cough syrup') :-
 
 advice('soothing cough syrup') :-
     cough(yes),
-    pregnant(yes).                  % TODO: pregnancy question is never asked
+    pregnant(yes).
 
 advice('soothing cough syrup') :-
     cough(mild).
@@ -223,5 +223,4 @@ advice('throat pastilles and paracetamol') :-
     throat_ache(more_than_3_days),
     age(older_than_6_years).
 
-
-advice(none).
+% advice(none).

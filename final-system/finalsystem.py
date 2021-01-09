@@ -51,6 +51,7 @@ def find_advice():
             return formulate_advice(answer["X"])
     return None
 
+## Formulate the advice for the patient in a sentence
 def formulate_advice(advice):
     if advice == "physician":
         return "The patient should go see their physician."  

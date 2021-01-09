@@ -3,12 +3,15 @@ from tkinter.font import Font
 from finalsystem import add_fact
 
 ## GUI constants
-buttonwidth = 30
-buttonheight = 3
+button_width  = 30
+button_height = 3
+window_width  = 700
+window_height = 500
 
 ## GUI elements
 window = tk.Tk()
-window.geometry("700x300")
+dimensions = str(window_width) + 'x' + str(window_height)
+window.geometry(dimensions)
 window.title("Pharmacy Help")
 mainframe = tk.Frame(window)
 mainframe.pack()
@@ -29,9 +32,11 @@ def show_question(inquiry):
     tk.Label(
         mainframe,
         text    = question,
-        font    = Font(size=16),
+        font    = Font(size = 16),
         width   = 100,
         height  = 3,
+        wraplength = window_width,
+        # wrap    = tk.WORD
     ).pack()
 
 def show_explanation(inquiry):
@@ -42,7 +47,9 @@ def show_explanation(inquiry):
             text   = explanation,
             font   = Font(size=12),
             width  = 100,
-            height = 3
+            height = 3,
+            wraplength = window_width,
+            # wrap   = tk.WORD
         ).pack()
 
 def show_buttons(inquiry):
@@ -52,13 +59,16 @@ def show_buttons(inquiry):
         tk.Button(
             mainframe,
             text    = answer,
-            width   = buttonwidth,
-            height  = buttonheight,
+            width   = button_width,
+            height  = button_height,
             command = lambda fact = fact: add_fact(fact)
         ).pack()
 
 def show_advice(advice):
-    mainframe.pack_forget()                 # clear the frame
-    text = tk.Label(text = "ADVICE: " + advice, font = Font(size=14))
+    clear_frame(mainframe)
+    tk.Label(
+        text = "ADVICE: " + advice, 
+        font = Font(size = 14)
+    ).pack( anchor = tk.N )
                                             # center the label in the frame
-    text.place(relx=.5, rely=.5, anchor="center")
+    # text.place(relx= .5, rely= .5, anchor = "center" )
