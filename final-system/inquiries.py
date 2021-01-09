@@ -9,7 +9,23 @@ inquiries = {
     "age" :
     (
         "What is the age of the patient?",
-        "Children and infants cannot take the same medications as adults."
+        "Children and infants cannot take the same medications as adults.",
+        (
+            "0 - 3 months",
+            "age(under_3_months)"
+        ),
+        (
+            "3 months - 2 years",
+            "age(under_2_years)"
+        ),
+        (
+            "2 years - 6 years",
+            "age(under_6_years)"
+        ),
+        (
+            "Older than 6 years",
+            "age(older_than_6_years)"
+        ),
     ),
 
     "which_symptom" :

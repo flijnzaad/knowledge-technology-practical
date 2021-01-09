@@ -4,11 +4,10 @@ from inquiries import *
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
-starting_question = "which_symptom"
+starting_question = "age"
 
 def main():
-    from interface import age_question
-    age_question(inquiries["age"])
+    ask_question(starting_question)
 
 ## Ask the question via the GUI
 def ask_question(question):
@@ -51,7 +50,7 @@ def find_advice():
         # TODO: this was to avoid the advice "You should take a none.", caused
         # by the dummy fact advice(none). This could probably be less ugly
         for answer in q:
-            if answer["X"] is not "none":
+            if answer["X"] != "none":
                 return formulate_advice(answer["X"])
         return None
 
