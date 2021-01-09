@@ -21,27 +21,27 @@ medication(unknown).
 pregnant(unknown).
 longQT_syndrome(unknown).
 
-% Ask the first question (after age question).
-ask(which_symptom) :-
-    \+ asked(which_symptom).
-
 %% Commonly known facts about age.
 age(under_6_years) :-
     age(under_2_years).
 
 age(under_2_years) :-
-    age(under_1_year).
-
-age(under_1_year) :-
     age(under_3_months).
+
+% Ask the first question (after age question).
+ask(pregnancy) :-
+    \+ asked(pregnancy),
+    age(older_than_6_years).
+
+% Standard second question.
+ask(which_symptom) :-
+    \+ asked(which_symptom).
 
 %% ----------------------------------------------------
 %%       Rules that infer which questions to ask          
 %% ----------------------------------------------------
 
-% asked(none).
 %% COUGHING
-
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
     cough(yes),
@@ -50,11 +50,6 @@ ask(how_long_cough) :-
 ask(additional_symptoms_cough) :-
     \+ asked(additional_symptoms_cough),
     cough(more_than_7_days).
-
-ask(using_ace_inhibitors) :-
-    \+ asked(using_ace_inhibitors),
-    cough(yes),
-    \+ age(under_3_months).
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
@@ -80,6 +75,11 @@ ask(sedative_medication) :-
 ask(antibiotic_medication) :-
     \+ asked(antibiotic_medication),
     cough(productive).
+
+ask(using_ace_inhibitors) :-
+    \+ asked(using_ace_inhibitors),
+    cough(yes),
+    age(older_than_6_years).
 
 %% BLOCKED NOSE
 ask(how_long_blocked_nose) :-
@@ -108,7 +108,6 @@ ask(already_decongestant) :-
     longQT_syndrome(no).
 
 %% THROAT ACHE
-
 ask(how_long_throat_ache) :-
     \+ asked(how_long_throat_ache),
     throat_ache(yes).
@@ -151,7 +150,7 @@ advice('soothing cough syrup') :-
 
 advice('soothing cough syrup') :-
     cough(yes),
-    pregnant(yes).                  % TODO: pregnancy question is never asked
+    pregnant(yes).
 
 advice('soothing cough syrup') :-
     not_tried(soothing_syrup),
@@ -234,5 +233,4 @@ advice('throat pastilles and paracetamol') :-
     throat_ache(more_than_3_days),
     age(older_than_6_years).
 
-
-advice(none).
+% advice(none).

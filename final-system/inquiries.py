@@ -9,7 +9,23 @@ inquiries = {
     "age" :
     (
         "What is the age of the patient?",
-        "Children and infants cannot take the same medications as adults."
+        "Children and infants cannot take the same medications as adults.",
+        (
+            "0 - 3 months",
+            "age(under_3_months)"
+        ),
+        (
+            "3 months - 2 years",
+            "age(under_2_years)"
+        ),
+        (
+            "2 years - 6 years",
+            "age(under_6_years)"
+        ),
+        (
+            "Older than 6 years",
+            "age(older_than_6_years)"
+        ),
     ),
 
     "which_symptom" :
@@ -52,23 +68,23 @@ inquiries = {
         )
     ),
 
-    "is_pregnant" :
+    "pregnancy" :
     (
         "Is the patient pregnant?",
         "Some medication can have an (unwanted) effect on unborn babies, so not " +
         "all medication is suitable for people who are pregnant.",
         (
             "Yes",
-            "patient(is_pregnant)"
+            "pregnant(yes)"
         ),
         (
             "No",
-            "patient(is_not_pregnant)"
+            "pregnant(no)"
         ),
-        (
-            "Maybe",
-            "patient(need_pregnancy_test)"
-        )
+        # (
+        #     "Maybe",
+        #     "patient(need_pregnancy_test)"
+        # )
     ),
 
     # -------------------COUGH--------------------
