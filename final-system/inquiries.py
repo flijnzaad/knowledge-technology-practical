@@ -81,10 +81,6 @@ inquiries = {
             "No",
             "pregnant(no)"
         ),
-        # (
-        #     "Maybe",
-        #     "patient(need_pregnancy_test)"
-        # )
     ),
 
     # -------------------COUGH--------------------
@@ -105,7 +101,6 @@ inquiries = {
             "cough(less_than_7_days)"
         )
     ),
-    # TODO: does asserta/1 also add the fact if it's already there?
 
     "using_ace_inhibitors" :
     (
@@ -133,9 +128,8 @@ inquiries = {
         ),
         (
             "No",
-            "not_tried(soothing_syrup)"
+            "tried(none)"                   # dummy fact
         )
-        # TODO: should it be more specific than medication(none)?
     ),
 
     "additional_symptoms_cough" :
@@ -190,7 +184,7 @@ inquiries = {
         ),
         (
             "No",
-            "medication(no_sedative)"
+            "medication(none)"              # dummy fact
         )
     ),
 
@@ -204,7 +198,7 @@ inquiries = {
         ),
         (
             "No",
-            "medication(no_antibiotic)"
+            "medication(none)"              # dummy fact
         )
     ),
 
@@ -233,7 +227,7 @@ inquiries = {
         ),
         (
             "No",
-            "not_tried(balloon)"
+            "tried(none)"                   # dummy fact
         )
     ),
 
@@ -261,7 +255,7 @@ inquiries = {
         ),
         (
             "No",
-            "not_tried(decongestant)"
+            "tried(none)"                   # dummy fact
         )
     ),
 
@@ -275,7 +269,7 @@ inquiries = {
         ),
         (
             "No",
-            "not_tried(salt_spray)"
+            "tried(none)"                   # dummy fact
         )
     ),
 

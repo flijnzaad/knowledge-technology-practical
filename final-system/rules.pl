@@ -9,11 +9,9 @@
     cough/1,
     longQT_syndrome/1,
     medication/1,
-    not_tried/1,
+    pregnant/1,
     tried/1,
     throat_ache/1.
-% TODO: probably needs more still (if it returns a permission error static
-%       procedure of some sort, put it here).
 
 %% Dummy facts to 'introduce' the predicates to the knowledge base
 additional_symptoms(unknown).
@@ -44,8 +42,7 @@ ask(which_symptom) :-
 %% COUGHING
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
-    cough(yes),
-    medication(none).
+    cough(yes).
 
 ask(additional_symptoms_cough) :-
     \+ asked(additional_symptoms_cough),
@@ -54,11 +51,19 @@ ask(additional_symptoms_cough) :-
 ask(cough_severity) :-
     \+ asked(cough_severity),
     cough(yes),
-    additional_symptoms(no).
+    additional_symptoms(no),
+    \+ age(under_6_years),
+    pregnant(no).
 
-ask(cough_severity) :-
-    \+ asked(cough_severity),
-    cough(less_than_7_days).
+ask(already_soothing) :-
+    \+ asked(already_soothing),
+    cough(yes),
+    pregnant(yes).
+
+ask(already_soothing) :-
+    \+ asked(already_soothing),
+    cough(yes),
+    age(under_6_years).
 
 ask(already_soothing) :-
     \+ asked(already_soothing),
@@ -76,11 +81,6 @@ ask(antibiotic_medication) :-
     \+ asked(antibiotic_medication),
     cough(productive).
 
-ask(using_ace_inhibitors) :-
-    \+ asked(using_ace_inhibitors),
-    cough(yes),
-    age(older_than_6_years).
-
 %% BLOCKED NOSE
 ask(how_long_blocked_nose) :-
     \+ asked(how_long_blocked_nose),
@@ -97,10 +97,16 @@ ask(already_salt_spray) :-
     \+ age(under_2_years),
     age(under_6_years).
 
+ask(already_salt_spray) :-
+    \+ asked(already_salt_spray),
+    blocked_nose(yes),
+    pregnant(yes).
+
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
     blocked_nose(yes),
-    \+ age(under_2_years).
+    \+ age(under_6_years),
+    pregnant(no).
 
 ask(already_decongestant) :-
     \+ asked(tried_decongestant),
@@ -135,102 +141,132 @@ advice(physician) :-
     cough(yes),
     medication(ace_inhibitors).
 
-advice('a cough suppressant') :-
-    medication(no_sedative),        % TODO: look at this
-    cough(mild),
+advice('soothing cough syrup') :-
+    cough(yes),
+    age(under_6_years),
+    \+ tried(soothing_syrup).
+
+advice('soothing cough syrup') :-
+    cough(yes),
+    pregnant(yes),
+    \+ tried(soothing_syrup).
+
+advice('wait or physician') :-
+    cough(yes),
+    age(under_6_years),
     tried(soothing_syrup).
 
-% advice('wait or physician') :-      % TODO
-%     tried(soothing_syrup),
-%     pregnant or child.
-
-advice('soothing cough syrup') :-
+advice('wait or physician') :-
     cough(yes),
-    age(under_6_years).
+    pregnant(yes),
+    tried(soothing_syrup).
 
 advice('soothing cough syrup') :-
-    cough(yes),
-    pregnant(yes).
+    cough(mild),
+    \+ tried(soothing_syrup).
 
 advice('soothing cough syrup') :-
-    not_tried(soothing_syrup),
-    cough(mild).
-
-advice('a cough suppressant') :-
-    cough(severe),
-    cough(dry),
-    medication(no_sedative).
-
-advice('a soothing cough syrup') :-
     cough(severe),
     cough(dry),
     medication(sedative).
 
-% generally, if already tried something and symptoms are severe, just go to doctor
-
-% productive: soothing syrup (or nothing). persistent: expectorant syrup. 
-
-advice('an expectorant cough syrup') :-
+advice('cough suppressant') :-
     cough(severe),
-    cough(productive),
-    medication(no_antibiotic),
+    cough(dry),
+    \+ medication(sedative).
+
+advice('expectorant cough syrup') :-
+    cough(severe),
+    cough(persistent),
+    \+ medication(antibiotic),
     \+ age(under_2_years).
 
-advice('a soothing cough syrup') :-
+advice('soothing cough syrup') :-
     cough(severe),
-    cough(productive),
+    cough(persistent),
     medication(antibiotic).
 
-advice('a soothing cough syrup') :-
+advice('soothing cough syrup') :-
+    cough(severe),
+    cough(persistent),
+    age(under_2_years).
+
+advice('soothing cough syrup') :-
     cough(severe),
     cough(productive),
-    age(under_2_years).
+    \+ tried(soothing_syrup).
+
+advice('wait or physician') :-
+    cough(severe),
+    cough(productive),
+    tried(soothing_syrup).
 
 %% BLOCKED NOSE
 advice(physician) :-
     blocked_nose(more_than_3_weeks).
 
 advice('a bulb syringe in combination with saline spray') :-
-    blocked_nose(less_than_3_weeks),
+    blocked_nose(yes),
     age(under_2_years),
-    not_tried(balloon).
+    \+ tried(balloon).
 
 advice(physician) :-
-    blocked_nose(less_than_3_weeks),
+    blocked_nose(yes),
     age(under_2_years),
     tried(balloon).
 
-advice('a salt (with menthol) nose spray') :-
-    blocked_nose(less_than_3_weeks),
+advice('salt (with menthol) nose spray') :-
+    blocked_nose(yes),
+    \+ age(under_2_years),
+    age(under_6_years),
+    \+ tried(salt_spray).
+
+advice('salt (with menthol) nose spray') :-
+    blocked_nose(yes),
     longQT_syndrome(yes).
 
-advice('a salt/menthol nose spray') :-
-    blocked_nose(less_than_3_weeks),
-    longQT_syndrome(no),
-    tried(decongestant).                % TODO: 5-7 days
+advice('salt (with menthol) nose spray') :-
+    blocked_nose(yes),
+    tried(decongestant).
 
-advice('a decongestant nose spray') :-
-    blocked_nose(less_than_3_weeks),
+advice('salt (with menthol) nose spray') :-
+    blocked_nose(yes),
+    pregnant(yes),
+    \+ tried(salt_spray).
+    
+advice('decongestant nose spray') :-
+    blocked_nose(yes),
     longQT_syndrome(no),
-    \+ age(under_2_years),              % TODO: 2-6 years first salt, then decongestant
-    not_tried(decongestant).
+    pregnant(no),
+    \+ age(under_2_years),
+    \+ tried(decongestant).
+
+advice('decongestant nose spray') :-
+    blocked_nose(yes),
+    \+ age(under_2_years),
+    age(under_6_years),
+    tried(salt_spray).
+
+advice('wait or physician') :-
+    blocked_nose(yes),
+    pregnant(yes),
+    tried(salt_spray).
 
 %% THROAT ACHE
 advice(physician) :-
     throat_ache(more_than_7_days).
 
 advice(physician) :-
+    throat_ache(yes),
     additional_symptoms(yes).
 
 advice(physician) :-
     throat_ache(more_than_3_days),
     age(under_6_years).
 
-advice('throat pastilles and paracetamol') :-
+advice(paracetamol) :-
     throat_ache(less_than_3_days).
 
-advice('throat pastilles and paracetamol') :-
+advice(paracetamol) :-
     throat_ache(more_than_3_days),
     age(older_than_6_years).
-
-% advice(none).
