@@ -1,5 +1,6 @@
 from pyswip import Prolog                   # pyswip for Prolog reasoning
 from inquiries import *
+from advice import *
 
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
@@ -20,7 +21,7 @@ def ask_question(question):
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
-    print("added fact:", fact)
+    print("added fact:", fact)              # debugging purposes
     pl.asserta(fact)
     ask_question(find_next_question())
 
@@ -53,10 +54,11 @@ def find_advice():
 
 ## Formulate the advice for the patient in a sentence
 def formulate_advice(advice):
-    if advice == "physician":
-        return "The patient should go see their physician."  
-    else:
-        return "The patient should use " + advice + "." 
+    full_advice = medications[advice]
+    return full_advice
+    # find additions
+    # print(medications[advice])
+    # return advice
 
 if __name__ == "__main__":
     main()

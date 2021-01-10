@@ -6,6 +6,7 @@
     age/1,
     asked/1,
     blocked_nose/1,
+    breastfed/1,
     cough/1,
     longQT_syndrome/1,
     medication/1,
@@ -42,7 +43,8 @@ ask(which_symptom) :-
 %% COUGHING
 ask(how_long_cough) :-
     \+ asked(how_long_cough),
-    cough(yes).
+    cough(yes),
+    \+ age(under_3_months).
 
 ask(additional_symptoms_cough) :-
     \+ asked(additional_symptoms_cough),
@@ -51,23 +53,17 @@ ask(additional_symptoms_cough) :-
 ask(cough_severity) :-
     \+ asked(cough_severity),
     cough(yes),
-    additional_symptoms(no),
     \+ age(under_6_years),
     pregnant(no).
 
 ask(already_soothing) :-
     \+ asked(already_soothing),
-    cough(yes),
-    pregnant(yes).
-
-ask(already_soothing) :-
-    \+ asked(already_soothing),
-    cough(yes),
-    age(under_6_years).
-
-ask(already_soothing) :-
-    \+ asked(already_soothing),
     cough(mild).
+
+ask(cough_kind) :- 
+    \+ asked(cough_kind),
+    cough(mild),
+    tried(soothing_syrup).
 
 ask(cough_kind) :-
     \+ asked(cough_kind),
@@ -79,12 +75,17 @@ ask(sedative_medication) :-
 
 ask(antibiotic_medication) :-
     \+ asked(antibiotic_medication),
-    cough(productive).
+    cough(persistent).
 
 %% BLOCKED NOSE
 ask(how_long_blocked_nose) :-
     \+ asked(how_long_blocked_nose),
     blocked_nose(yes).
+
+ask(breastfed) :-
+    \+ asked(breastfed),
+    blocked_nose(yes),
+    age(under_2_years).
 
 ask(already_balloon) :-
     \+ asked(already_balloon),
@@ -126,130 +127,93 @@ ask(additional_symptoms_throat_ache) :-
 %%           Rules for inference of advice
 %% ----------------------------------------------------
 %% COUGHING
-advice(physician) :-
+advice(physician_infection) :-
     cough(more_than_3_weeks).
 
-advice(physician) :-
+advice(physician_infection) :-
     cough(yes),
     age(under_3_months).
 
-advice(physician) :-
+advice(physician_infection) :-
     cough(more_than_7_days),
     additional_symptoms(yes).
 
-advice(physician) :-
+advice(physician_ace) :-
     cough(yes),
     medication(ace_inhibitors).
 
-advice('soothing cough syrup') :-
+advice(soothing_syrup) :-
     cough(yes),
-    age(under_6_years),
-    \+ tried(soothing_syrup).
+    age(under_6_years).
 
-advice('soothing cough syrup') :-
+advice(soothing_syrup) :-
     cough(yes),
-    pregnant(yes),
-    \+ tried(soothing_syrup).
+    pregnant(yes).
 
-advice('wait or physician') :-
-    cough(yes),
-    age(under_6_years),
-    tried(soothing_syrup).
-
-advice('wait or physician') :-
-    cough(yes),
-    pregnant(yes),
-    tried(soothing_syrup).
-
-advice('soothing cough syrup') :-
+advice(soothing_syrup) :-
     cough(mild),
     \+ tried(soothing_syrup).
 
-advice('soothing cough syrup') :-
-    cough(severe),
+advice(soothing_syrup) :-
     cough(dry),
     medication(sedative).
 
-advice('cough suppressant') :-
-    cough(severe),
+advice(suppressant_syrup) :-
     cough(dry),
     \+ medication(sedative).
 
-advice('expectorant cough syrup') :-
-    cough(severe),
+advice(expectorant_syrup) :-
     cough(persistent),
     \+ medication(antibiotic),
     \+ age(under_2_years).
 
-advice('soothing cough syrup') :-
-    cough(severe),
+advice(soothing_syrup) :-
     cough(persistent),
     medication(antibiotic).
 
-advice('soothing cough syrup') :-
-    cough(severe),
+advice(soothing_syrup) :-
     cough(persistent),
     age(under_2_years).
 
-advice('soothing cough syrup') :-
-    cough(severe),
+advice(soothing_syrup) :-
     cough(productive),
     \+ tried(soothing_syrup).
 
-advice('wait or physician') :-
-    cough(severe),
-    cough(productive),
-    tried(soothing_syrup).
-
 %% BLOCKED NOSE
-advice(physician) :-
+advice(physician_infection) :-
     blocked_nose(more_than_3_weeks).
 
-advice('a bulb syringe in combination with saline spray') :-
+advice(bulb_syringe) :-
     blocked_nose(yes),
     age(under_2_years),
     \+ tried(balloon).
 
-advice(physician) :-
-    blocked_nose(yes),
-    age(under_2_years),
-    tried(balloon).
-
-advice('salt (with menthol) nose spray') :-
+advice(salt_menthol_spray) :-
     blocked_nose(yes),
     \+ age(under_2_years),
     age(under_6_years),
     \+ tried(salt_spray).
 
-advice('salt (with menthol) nose spray') :-
+advice(salt_menthol_spray) :-
     blocked_nose(yes),
     longQT_syndrome(yes).
 
-advice('salt (with menthol) nose spray') :-
-    blocked_nose(yes),
-    tried(decongestant).
-
-advice('salt (with menthol) nose spray') :-
+advice(salt_menthol_spray) :-
     blocked_nose(yes),
     pregnant(yes),
     \+ tried(salt_spray).
     
-advice('decongestant nose spray') :-
+advice(decongestant_spray) :-
     blocked_nose(yes),
     longQT_syndrome(no),
     pregnant(no),
     \+ age(under_2_years),
     \+ tried(decongestant).
 
-advice('decongestant nose spray') :-
+advice(decongestant_spray) :-
     blocked_nose(yes),
     \+ age(under_2_years),
     age(under_6_years),
-    tried(salt_spray).
-
-advice('wait or physician') :-
-    blocked_nose(yes),
-    pregnant(yes),
     tried(salt_spray).
 
 %% THROAT ACHE

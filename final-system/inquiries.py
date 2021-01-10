@@ -163,14 +163,20 @@ inquiries = {
     "cough_kind" :
     (
         "What kind of cough does the patient have?",
-        "A productive cough involves mucus, whereas a dry cough does not.",
+        "A dry cough does not involve mucus and feels like an itch in the throat.\n" +
+        "A productive cough means successfully coughing up mucus.\n" +
+        "A persistent cough is when one tries to cough up mucus, but they can't.",
+        (
+            "Dry",
+            "cough(dry)"
+        ),
         (
             "Productive",
             "cough(productive)"
         ),
         (
-            "Dry",
-            "cough(dry)"
+            "Persistent",
+            "cough(persistent)"
         )
     ),
 
@@ -228,6 +234,20 @@ inquiries = {
         (
             "No",
             "tried(none)"                   # dummy fact
+        )
+    ),
+
+    "breastfed" :
+    (
+        "Is the patient breastfed?",
+        "An breastfed infant with a blocked nose cannot drink properly, so if the advised remedy is not working immediately they should see a physician.",
+        (
+            "Yes",
+            "breastfed(yes)"
+        ),
+        (
+            "No",
+            "breastfed(no)"
         )
     ),
 

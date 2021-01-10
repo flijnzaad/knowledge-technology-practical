@@ -3,6 +3,8 @@ from tkinter.font import Font
 from finalsystem import add_fact
 
 ## GUI constants
+text_width = 100
+text_height = 3
 button_width  = 30
 button_height = 3
 window_width  = 700
@@ -34,10 +36,9 @@ def show_question(inquiry):
         mainframe,
         text    = question,
         font    = Font(size = 16),
-        width   = 100,
-        height  = 3,
-        wraplength = window_width,
-        # wrap    = tk.WORD
+        width   = text_width,
+        height  = text_height,
+        wraplength = window_width
     ).pack()
 
 def show_explanation(inquiry):
@@ -47,10 +48,9 @@ def show_explanation(inquiry):
             mainframe,
             text   = explanation,
             font   = Font(size=12),
-            width  = 100,
-            height = 3,
-            wraplength = window_width,
-            # wrap   = tk.WORD
+            width  = text_width,
+            height = text_height,
+            wraplength = window_width
         ).pack()
 
 def show_buttons(inquiry):
@@ -68,6 +68,8 @@ def show_buttons(inquiry):
 def show_advice(advice):
     clear_frame(mainframe)
     tk.Label(
-        text = "ADVICE: " + advice, 
-        font = Font(size = 14)
+        text = "ADVICE:\n" + advice, 
+        font = Font(size = 14),
+        width = text_width,
+        wraplength = window_width
     ).pack( anchor = tk.N )
