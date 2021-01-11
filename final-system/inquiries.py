@@ -9,7 +9,7 @@ inquiries = {
     "age" :
     (
         "What is the age of the patient?",
-        "Children and infants cannot take the same medications as adults.",
+        None,
         (
             "0 - 3 months",
             "age(under_3_months)"
@@ -236,7 +236,7 @@ inquiries = {
     "breastfed" :
     (
         "Is the patient breastfed?",
-        "An breastfed infant with a blocked nose cannot drink properly, so if the advised remedy is not working immediately they should see a physician.",
+        None,                               # the explanation is given in the advice quickly after
         (
             "Yes",
             "breastfed(yes)"

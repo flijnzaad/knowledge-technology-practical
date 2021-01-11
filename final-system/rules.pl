@@ -12,6 +12,7 @@
     medication/1,
     pregnant/1,
     take_medication/1,
+    take_decongestant/1,
     tried/1,
     throat_ache/1.
 
@@ -89,35 +90,20 @@ ask(how_long_blocked_nose) :-
 
 ask(breastfed) :-
     \+ asked(breastfed),
-    blocked_nose(yes),
-    age(under_2_years).
-
-ask(already_balloon) :-
-    \+ asked(already_balloon),
     blocked_nose(less_than_3_weeks),
     age(under_2_years).
 
 ask(already_salt_spray) :-
     \+ asked(already_salt_spray),
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     \+ age(under_2_years),
     age(under_6_years).
-
-ask(already_salt_spray) :-
-    \+ asked(already_salt_spray),
-    blocked_nose(yes),
-    pregnant(yes).
 
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
     blocked_nose(yes),
     \+ age(under_6_years),
     pregnant(no).
-
-ask(already_decongestant) :-
-    \+ asked(tried_decongestant),
-    blocked_nose(yes),
-    longQT_syndrome(no).
 
 %% THROAT ACHE
 ask(how_long_throat_ache) :-
@@ -148,7 +134,8 @@ advice(physician_ace) :-
     medication(ace_inhibitors).
 
 advice(soothing_syrup) :-
-    cough(yes),
+    cough(less_than_3_weeks),
+    \+ age(under_3_months),
     age(under_6_years).
 
 advice(soothing_syrup) :-
@@ -189,34 +176,38 @@ advice(physician_infection) :-
     blocked_nose(more_than_3_weeks).
 
 advice(bulb_syringe) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     age(under_2_years),
     \+ tried(balloon).
 
 advice(salt_menthol_spray) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     \+ age(under_2_years),
     age(under_6_years),
     \+ tried(salt_spray).
 
 advice(salt_menthol_spray) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     longQT_syndrome(yes).
 
 advice(salt_menthol_spray) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     pregnant(yes),
     \+ tried(salt_spray).
+
+advice(salt_menthol_spray) :-
+    blocked_nose(less_than_3_weeks),
+    tried(decongestant_spray).
     
 advice(decongestant_spray) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     longQT_syndrome(no),
     pregnant(no),
     \+ age(under_2_years),
-    \+ tried(decongestant).
+    \+ tried(decongestant_spray).
 
 advice(decongestant_spray) :-
-    blocked_nose(yes),
+    blocked_nose(less_than_3_weeks),
     \+ age(under_2_years),
     age(under_6_years),
     tried(salt_spray).
@@ -248,15 +239,21 @@ take_medication(yes) :-                     % fact to make these additions easie
     \+ X = physician_infection,
     \+ X = physician_ace.
 
+take_decongestant(no) :-
+    advice(X),
+    \+ X = decongestant_spray.
+
 addition(medical_insert) :-
     take_medication(yes).
 
 addition(breastfed) :-
     breastfed(yes),
-    \+ take_medication(yes).
+    take_medication(yes).
 
 addition(if_tried_already) :-
-    take_medication(yes).
+    take_medication(yes),
+    take_decongestant(no),                  % the advice for decongestant already includes "if tried already"    
+    \+ breastfed(yes).                      % the advice for breastfed already includes "go to physician"
 
 addition(tips_coughing) :-
     cough(yes),
