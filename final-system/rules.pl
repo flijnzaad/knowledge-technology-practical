@@ -11,6 +11,7 @@
     longQT_syndrome/1,
     medication/1,
     pregnant/1,
+    take_medication/1,
     tried/1,
     throat_ache/1.
 
@@ -35,6 +36,10 @@ ask(pregnancy) :-
 % Standard second question.
 ask(which_symptom) :-
     \+ asked(which_symptom).
+
+% Standard third question.
+ask(covid) :-
+    \+ asked(covid).
 
 %% ----------------------------------------------------
 %%       Rules that infer which questions to ask          
@@ -217,14 +222,14 @@ advice(decongestant_spray) :-
     tried(salt_spray).
 
 %% THROAT ACHE
-advice(physician) :-
+advice(physician_infection) :-
     throat_ache(more_than_7_days).
 
-advice(physician) :-
+advice(physician_infection) :-
     throat_ache(yes),
     additional_symptoms(yes).
 
-advice(physician) :-
+advice(physician_infection) :-
     throat_ache(more_than_3_days),
     age(under_6_years).
 
@@ -234,3 +239,52 @@ advice(paracetamol) :-
 advice(paracetamol) :-
     throat_ache(more_than_3_days),
     age(older_than_6_years).
+
+%% ----------------------------------------------------
+%%          Rules for additions to advice
+%% ----------------------------------------------------
+take_medication(yes) :-                     % fact to make these additions easier
+    advice(X),
+    \+ X = physician_infection,
+    \+ X = physician_ace.
+
+addition(medical_insert) :-
+    take_medication(yes).
+
+addition(breastfed) :-
+    breastfed(yes),
+    \+ take_medication(yes).
+
+addition(if_tried_already) :-
+    take_medication(yes).
+
+addition(tips_coughing) :-
+    cough(yes),
+    take_medication(yes).
+
+addition(tips_blocked_nose) :-
+    blocked_nose(yes),
+    take_medication(yes).
+
+addition(tips_throat_ache) :-
+    throat_ache(yes),
+    take_medication(yes).
+
+addition(covid_positive_physician) :-
+    covid(positive),
+    \+ take_medication(yes).
+
+addition(covid_positive_medication) :-
+    covid(positive),
+    take_medication(yes).
+
+addition(covid_test_physician) :-
+    covid(test),
+    \+ take_medication(yes).
+
+addition(covid_test_medication) :-
+    covid(test),
+    take_medication(yes).
+
+addition(covid_quarantine) :-
+    \+ covid(negative).

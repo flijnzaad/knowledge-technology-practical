@@ -1,6 +1,5 @@
 from pyswip import Prolog                   # pyswip for Prolog reasoning
 from inquiries import *
-from advice import *
 
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
@@ -38,27 +37,40 @@ def find_next_question():
 
 ## Give the advice via the GUI
 def give_advice():
-    advice = find_advice()
+    advice = formulate_advice()
     if advice is not None:
         from interface import show_advice
         show_advice(advice)
 
-## Make the inference, return the associated advice
+## Returns advice with additions 
+def formulate_advice():
+    advice = find_advice()
+    additions = find_additions()
+    full_advice = (advice, additions)
+    return full_advice
+
+## Infer advice
 def find_advice():
     q = list(pl.query("advice(X)"))
     print(q)                                # debugging purposes
     for answer in q:
         if answer["X"] != "none":
-            return formulate_advice(answer["X"])
+            advice = answer["X"]
+            from advice import medications
+            return medications[advice]
     return None
 
-## Formulate the advice for the patient in a sentence
-def formulate_advice(advice):
-    full_advice = medications[advice]
-    return full_advice
-    # find additions
-    # print(medications[advice])
-    # return advice
+## Infer additions to the advice
+def find_additions():
+    q = list(pl.query("addition(X)"))
+    print(q)
+    full_additions = ""
+    for answer in q:
+        if answer["X"] != "none":
+            new_addition = answer["X"]
+            from advice import additions
+            full_additions += additions[new_addition]
+    return full_additions
 
 if __name__ == "__main__":
     main()

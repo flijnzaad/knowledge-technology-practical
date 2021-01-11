@@ -46,10 +46,10 @@ inquiries = {
         )
     ),
 
-    "tested_covid19" :
+    "covid" :
     (
         "Has the patient been tested for COVID-19?",
-        None,
+        "The patient's symptom is also a symptom of coronavirus, so it is important to get tested.",
         (
             "Yes, the test came back positive",
             "covid(positive)"
@@ -59,12 +59,8 @@ inquiries = {
             "covid(negative)"
         ),
         (
-            "No, they have not been tested.",
-            "covid(no_test)"
-        ),
-        (
-            "No, but they have a test scheduled",      # needed?
-            "covid(test_scheduled)"
+            "No, they have not been tested",
+            "covid(test)"
         )
     ),
 

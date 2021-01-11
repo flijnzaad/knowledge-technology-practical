@@ -1,42 +1,55 @@
 medications = {
     "physician_infection" :
         ("The patient should see a physician, because they might have an underlying infection that needs to be treated, " +
-         "with for example antibiotics."),
+         "with for example antibiotics. "),
     "physician_ace" :
         ("The patient should their physician, because their cough might be a side-effect of the ACE-inhibitors they use. " +
-         "They could use a soothing cough syrup to alleviate the cough, but this will not make it go away."),
+         "They could use a soothing cough syrup to alleviate the cough, but this will not make it go away. "),
     "soothing_syrup" :
-        ("The patient should take a non-medicinal soothing cough syrup. Always read the medical insert before use."),
+        ("The patient should take a non-medicinal soothing cough syrup. "),
     "suppressant_syrup" :
-        ("The patient should take a cough suppressant syrup. This medication can cause reduced alertness. Always read the " +
-         "medical insert before use."),
+        ("The patient should take a cough suppressant syrup. This medication can cause reduced alertness. "),
     "expectorant_syrup" :
-        ("The patient should take a cough expectorant syrup. Always read the medical insert before use."),
+        ("The patient should take a cough expectorant syrup. "),
     "bulb_syringe" :
         ("The patient should use a bulb syringe or nasal aspirator to \"suck out\" the mucus. They could use a non-medicinal " +
-         "saline nose spray to soften up the mucus beforehand. Always read the medical insert before use."),
+         "saline nose spray to soften up the mucus beforehand. "),
     "salt_menthol_spray" :
         ("The patient should use a non-medicinal saline nose spray, possibly with menthol in it. "),
     "decongestant_spray" :
         ("The patient should use a decongestant nose spray. This medication can only be used for 5-7 days. If the symptoms are " +
-         "still present after this period, they can switch to a non-medicinal saline nose spray."),
+         "still present after this period, they can switch to a non-medicinal saline nose spray. "),
     "paracetamol" :
-        ("The patient should use paracetamol. If taking this orally is too painful, they could take it rectally.")
+        ("The patient should use paracetamol. If taking this orally is too painful, they could take it rectally. ")
 }
 
-# always read medical insert before use
-
 additions = {
-    "tips_coughing" :
-        ("Other non-medicinal remedies include taking small sips of water, sucking on licorice or drinking tea with honey."),
-    "tips_blocked_nose" :
-        ("Additionally, a steam bath is a helpful non-medicinal remedy."),
-    "tips_throat_ache" :
-        ("Other non-medicinal remedies include sucking on licorice or drinking tea with honey."),
+    "medical_insert" :
+        ("Always read the medical insert before use.\n"),
     "if_tried_already" :
         ("If the patient has tried this remedy already and the symptoms are still present, they could see a physician " +
-         "if they want."),
+         "if they want.\n"),
     "breastfed" :
         ("A breastfed infant with a blocked nose cannot breathe properly while drinking. It is important to keep a close " +
-         "look on whether the blocked nose goes away, and if it does not go away quickly, the patient should see a physician.")
+         "look on whether the blocked nose goes away, and if it does not go away quickly, the patient should see a physician. "),
+    "tips_coughing" :
+        ("Other non-medicinal remedies include taking small sips of water, sucking on licorice or drinking tea with honey. "),
+    "tips_blocked_nose" :
+        ("Additionally, a steam bath is a helpful non-medicinal remedy. "),
+    "tips_throat_ache" :
+        ("Other non-medicinal remedies include sucking on licorice or drinking tea with honey. "),
+    "covid_positive_physician" :
+        ("The patient cannot have an appointment with their physician in real life because of COVID, so this will have to " +
+         "be an appointment over the phone.  "),
+    "covid_positive_medication" :
+        ("Since the patient's COVID-19 test came back positive, they cannot go to the pharmacy themself to pick up the medication. " +
+         "They should have someone else pick it up for them. "),
+    "covid_test_physician" :
+        ("The patient should await their COVID test results before physically going to the physician, or they should have an " +
+         "appointment over the phone. "),
+    "covid_test_medication" :
+        ("The patient should await their COVID test results before physically going to the pharmacy, or they should have someone else " +
+         "pick up the medication. "),
+    "covid_quarantine" :
+        ("Always keep quarantine rules in mind. ")
 }

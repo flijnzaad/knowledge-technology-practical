@@ -65,11 +65,19 @@ def show_buttons(inquiry):
             command = lambda fact = fact: add_fact(fact)
         ).pack()
 
-def show_advice(advice):
-    clear_frame(mainframe)
-    tk.Label(
+def show_advice(full_advice):
+    mainframe.pack_forget()                     # clear the frame
+    advice = full_advice[0]
+    additions = full_advice[1]
+    text = tk.Label(
         text = "ADVICE:\n" + advice, 
-        font = Font(size = 14),
+        font = Font(size = 14, weight = "bold"),
         width = text_width,
         wraplength = window_width
-    ).pack( anchor = tk.N )
+    ).pack(side = "top")
+    text = tk.Label(
+        text = additions, 
+        font = Font(size = 12),
+        width = text_width,
+        wraplength = window_width
+    ).pack(side = "bottom")
