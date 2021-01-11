@@ -112,8 +112,6 @@ inquiries = {
         )
     ),
 
-    # TODO: this has a very similar setup to the previous one; is there a way to
-    # generalize this?
     "already_soothing" :
     (
         "Has the patient already tried using soothing cough syrup against their cough?",
@@ -216,20 +214,6 @@ inquiries = {
         (
             "For less than 3 weeks",
             "blocked_nose(less_than_3_weeks)"
-        )
-    ),
-
-    "already_balloon" :
-    (
-        "Has the patient already tried using a bulb syringe or nasal aspirator to remedy the blocked nose?",
-        "For infants, bulb syringes and nasal aspirators can be used to \"suck out\" the blockage.",
-        (
-            "Yes",
-            "tried(balloon)"
-        ),
-        (
-            "No",
-            "tried(none)"                   # dummy fact
         )
     ),
 

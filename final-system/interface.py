@@ -73,9 +73,10 @@ def show_advice(full_advice):
         justify = "left",
         wraplength = text_width
     ).pack(expand = "yes", fill = "both")
-    tk.Label(
-        text = "ADDITIONAL INFORMATION:\n" + additions, 
-        font = Font(size = 12),
-        justify = "left",
-        wraplength = text_width
-    ).pack(expand = "yes", fill = "both")
+    if additions is not None:
+        tk.Label(
+            text = "ADDITIONAL INFORMATION:\n" + additions, 
+            font = Font(size = 12),
+            justify = "left",
+            wraplength = text_width
+        ).pack(expand = "yes", fill = "both")

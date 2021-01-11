@@ -99,6 +99,13 @@ ask(already_salt_spray) :-
     \+ age(under_2_years),
     age(under_6_years).
 
+ask(already_decongestant) :-
+    \+ asked(already_decongestant),
+    blocked_nose(less_than_3_weeks),
+    longQT_syndrome(no),
+    pregnant(no),
+    \+ age(under_2_years).
+
 ask(longQT_syndrome) :-
     \+ asked(longQT_syndrome),
     blocked_nose(yes),
@@ -134,12 +141,23 @@ advice(physician_ace) :-
     medication(ace_inhibitors).
 
 advice(soothing_syrup) :-
-    cough(less_than_3_weeks),
+    cough(less_than_7_days),
     \+ age(under_3_months),
     age(under_6_years).
 
 advice(soothing_syrup) :-
-    cough(yes),
+    cough(more_than_7_days),
+    additional_symptoms(no),
+    \+ age(under_3_months),
+    age(under_6_years).
+
+advice(soothing_syrup) :-
+    cough(less_than_7_days),
+    pregnant(yes).
+
+advice(soothing_syrup) :-
+    cough(more_than_7_days),
+    additional_symptoms(no),
     pregnant(yes).
 
 advice(soothing_syrup) :-
@@ -177,8 +195,7 @@ advice(physician_infection) :-
 
 advice(bulb_syringe) :-
     blocked_nose(less_than_3_weeks),
-    age(under_2_years),
-    \+ tried(balloon).
+    age(under_2_years).
 
 advice(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
@@ -192,8 +209,7 @@ advice(salt_menthol_spray) :-
 
 advice(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
-    pregnant(yes),
-    \+ tried(salt_spray).
+    pregnant(yes).
 
 advice(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
