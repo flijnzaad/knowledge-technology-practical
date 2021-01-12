@@ -67,8 +67,8 @@ inquiries = {
     "pregnancy" :
     (
         "Is the patient pregnant?",
-        "Some medication can have an (unwanted) effect on unborn babies, so not " +
-        "all medication is suitable for people who are pregnant.",
+        "Medication can have an (unwanted) effect on unborn babies, so pregnant women are advised to " +
+        "take as little medication as possible.",
         (
             "Yes",
             "pregnant(yes)"
@@ -101,7 +101,7 @@ inquiries = {
     "using_ace_inhibitors" :
     (
         "Is the patient using ACE inhibitors, such as enalapril or lisinopril?",
-        "Coughing can be a side effect of this group of medications.",
+        "Coughing can be a side effect of this group of medications, which are used against heart failure.",
         (
             "Yes",
             "medication(ace_inhibitors)"
@@ -177,7 +177,8 @@ inquiries = {
     "sedative_medication" :
     (
         "Is the patient taking a medication that is a sedative?",
-        "Sedative medications are those that may reduce alertness.",
+        "Sedative medications are those that may reduce alertness. Patients who are taking these medications " +
+        "cannot use a cough suppressant.",
         (
             "Yes",
             "medication(sedative)"
