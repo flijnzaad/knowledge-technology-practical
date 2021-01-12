@@ -1,5 +1,6 @@
 # Knowledge Technology Practical
 *Pharmacy Help expert system*
+
 By Martin Cupic, Flip Lijnzaad and Gilles Lijnzaad.
 
 ## Dependencies
