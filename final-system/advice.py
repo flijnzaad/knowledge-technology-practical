@@ -1,4 +1,4 @@
-medications = {
+recommendations = {
     "physician_infection" :
         ("The patient should see a physician, because they might have an underlying infection that needs to be treated, " +
          "with for example antibiotics. "),

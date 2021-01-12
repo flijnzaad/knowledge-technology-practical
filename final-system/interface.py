@@ -78,12 +78,12 @@ def show_buttons(inquiry):
             command = lambda fact = fact: add_fact(fact)
         ).pack()
 
-def show_advice(full_advice):
+def show_advice(advice):
     mainframe.pack_forget()                     # clear the frame
-    advice = full_advice[0]
-    additions = full_advice[1]
+    recommendation = advice[0]
+    additions = advice[1]
     Label(
-        text = "ADVICE:\n" + advice, 
+        text = "ADVICE:\n" + recommendation, 
         font = Font(size = 14, weight = "bold"),
         justify = LEFT,
         wraplength = text_width

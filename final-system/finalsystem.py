@@ -46,33 +46,33 @@ def give_advice():
 
 ## Returns advice with additions 
 def formulate_advice():
-    advice = find_advice()
+    recommendation = find_recommendation()
     additions = find_additions()
-    full_advice = (advice, additions)
-    return full_advice
+    advice = (recommendation, additions)
+    return advice
 
 ## Infer advice
-def find_advice():
+def find_recommendation():
     q = list(pl.query("advice(X)"))
     # print(q)                                # debugging purposes
     for answer in q:
         if answer["X"] != "none":
-            advice = answer["X"]
-            from advice import medications
-            return medications[advice]
+            r = answer["X"]
+            from advice import recommendations
+            return recommendations[r]
     return None
 
 ## Infer additions to the advice
 def find_additions():
     q = list(pl.query("addition(X)"))
     # print(q)                                # debugging purposes 
-    full_additions = ""
+    additions = ""
     for answer in q:
         if answer["X"] != "none":
-            new_addition = answer["X"]
+            a = answer["X"]
             from advice import additions
-            full_additions += additions[new_addition]
-    return full_additions
+            additions += additions[a]
+    return additions
 
 if __name__ == "__main__":
     main()
