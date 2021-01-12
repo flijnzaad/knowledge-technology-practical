@@ -1,21 +1,23 @@
 from pyswip import Prolog                   # pyswip for Prolog reasoning
-from inquiries import *
 
 pl = Prolog()
 pl.consult("rules.pl")                      # load the knowledge base
 
 starting_question = "age"
+starting_message = ("Welcome to Pharmacy Help!\n\nThis system will provide pharmaceutical advice for people with symptoms of the " +
+                    "common cold, namely coughing, a blocked nose and a throat ache. It represents the knowledge of our expert, " +
+                    "pharmacist Catrien Oom.")
 
 def main():
-    ask_question(starting_question)
+    from interface import start
+    start(starting_message, starting_question)
 
 ## Ask the question via the GUI
 def ask_question(question):
-    from interface import show_inquiry
-
-    pl.asserta("asked({})".format(question))# the question is asked
-
     if question is not None:
+        pl.asserta("asked({})".format(question))
+        from interface import show_inquiry
+        from inquiries import inquiries
         show_inquiry(inquiries[question])
 
 ## Add the fact in the argument to the database, and ask new question
