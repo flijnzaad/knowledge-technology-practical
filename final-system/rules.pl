@@ -58,7 +58,14 @@ ask(additional_symptoms_cough) :-
 
 ask(cough_severity) :-
     \+ asked(cough_severity),
-    cough(yes),
+    cough(less_than_7_days),
+    \+ age(under_6_years),
+    pregnant(no).
+
+ask(cough_severity) :-
+    \+ asked(cough_severity),
+    cough(more_than_7_days),
+    additional_symptoms(no),
     \+ age(under_6_years),
     pregnant(no).
 

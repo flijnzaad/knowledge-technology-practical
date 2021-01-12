@@ -22,14 +22,14 @@ def ask_question(question):
 
 ## Add the fact in the argument to the database, and ask new question
 def add_fact(fact):
-    # print("added fact:", fact)              # debugging purposes
+    # print("added fact:", fact)            # debugging purposes
     pl.asserta(fact)
     ask_question(find_next_question())
 
 ## Determine what the next question should be
 def find_next_question():
     q = list(pl.query("ask(X)"))
-    # print(q)                                # debugging purposes 
+    print(q)                                # debugging purposes 
     if q:
         return q[0]["X"]                    # take the first answer
 
@@ -66,13 +66,13 @@ def find_recommendation():
 def find_additions():
     q = list(pl.query("addition(X)"))
     # print(q)                                # debugging purposes 
-    additions = ""
+    full_addition = ""
     for answer in q:
         if answer["X"] != "none":
             a = answer["X"]
             from advice import additions
-            additions += additions[a]
-    return additions
+            full_addition += additions[a]
+    return full_addition
 
 if __name__ == "__main__":
     main()
