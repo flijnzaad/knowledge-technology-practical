@@ -1,8 +1,7 @@
 %% Declare these predicates as dynamic, i.e. facts with these predicates
 %% may be added using asserta/1.
 :- dynamic 
-    additional_symptoms/1, 
-    advice/1,
+    additional_symptoms/1,
     age/1,
     asked/1,
     blocked_nose/1,
@@ -10,7 +9,8 @@
     cough/1,
     longQT_syndrome/1,
     medication/1,
-    pregnant/1,
+    pregnant/1, 
+    recommendation/1,
     take_medication/1,
     take_decongestant/1,
     tried/1,
@@ -129,141 +129,141 @@ ask(additional_symptoms_throat_ache) :-
     throat_ache(less_than_7_days).
 
 %% ----------------------------------------------------
-%%           Rules for inference of advice
+%%      Rules for inference of the recommendation
 %% ----------------------------------------------------
 %% COUGHING
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     cough(more_than_3_weeks).
 
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     cough(yes),
     age(under_3_months).
 
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     cough(more_than_7_days),
     additional_symptoms(yes).
 
-advice(physician_ace) :-
+recommendation(physician_ace) :-
     cough(yes),
     medication(ace_inhibitors).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(less_than_7_days),
     \+ age(under_3_months),
     age(under_6_years).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(more_than_7_days),
     additional_symptoms(no),
     \+ age(under_3_months),
     age(under_6_years).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(less_than_7_days),
     pregnant(yes).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(more_than_7_days),
     additional_symptoms(no),
     pregnant(yes).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(mild),
     \+ tried(soothing_syrup).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(dry),
     medication(sedative).
 
-advice(suppressant_syrup) :-
+recommendation(suppressant_syrup) :-
     cough(dry),
     \+ medication(sedative).
 
-advice(expectorant_syrup) :-
+recommendation(expectorant_syrup) :-
     cough(persistent),
     \+ medication(antibiotic),
     \+ age(under_2_years).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(persistent),
     medication(antibiotic).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(persistent),
     age(under_2_years).
 
-advice(soothing_syrup) :-
+recommendation(soothing_syrup) :-
     cough(productive),
     \+ tried(soothing_syrup).
 
 %% BLOCKED NOSE
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     blocked_nose(more_than_3_weeks).
 
-advice(bulb_syringe) :-
+recommendation(bulb_syringe) :-
     blocked_nose(less_than_3_weeks),
     age(under_2_years).
 
-advice(salt_menthol_spray) :-
+recommendation(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
     \+ age(under_2_years),
     age(under_6_years),
     \+ tried(salt_spray).
 
-advice(salt_menthol_spray) :-
+recommendation(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(yes).
 
-advice(salt_menthol_spray) :-
+recommendation(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
     pregnant(yes).
 
-advice(salt_menthol_spray) :-
+recommendation(salt_menthol_spray) :-
     blocked_nose(less_than_3_weeks),
     tried(decongestant_spray).
     
-advice(decongestant_spray) :-
+recommendation(decongestant_spray) :-
     blocked_nose(less_than_3_weeks),
     longQT_syndrome(no),
     pregnant(no),
     \+ age(under_2_years),
     \+ tried(decongestant_spray).
 
-advice(decongestant_spray) :-
+recommendation(decongestant_spray) :-
     blocked_nose(less_than_3_weeks),
     \+ age(under_2_years),
     age(under_6_years),
     tried(salt_spray).
 
 %% THROAT ACHE
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     throat_ache(more_than_7_days).
 
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     throat_ache(yes),
     additional_symptoms(yes).
 
-advice(physician_infection) :-
+recommendation(physician_infection) :-
     throat_ache(more_than_3_days),
     age(under_6_years).
 
-advice(paracetamol) :-
+recommendation(paracetamol) :-
     throat_ache(less_than_3_days).
 
-advice(paracetamol) :-
+recommendation(paracetamol) :-
     throat_ache(more_than_3_days),
     age(older_than_6_years).
 
 %% ----------------------------------------------------
-%%          Rules for additions to advice
+%%         Rules for additions to recommendation
 %% ----------------------------------------------------
 take_medication(yes) :-                     % fact to make these additions easier
-    advice(X),
+    recommendation(X),
     \+ X = physician_infection,
     \+ X = physician_ace.
 
 take_decongestant(no) :-
-    advice(X),
+    recommendation(X),
     \+ X = decongestant_spray.
 
 addition(medical_insert) :-
@@ -275,8 +275,8 @@ addition(breastfed) :-
 
 addition(if_tried_already) :-
     take_medication(yes),
-    take_decongestant(no),                  % the advice for decongestant already includes "if tried already"    
-    \+ breastfed(yes).                      % the advice for breastfed already includes "go to physician"
+    take_decongestant(no),                  % the recommendation for decongestant already includes "if tried already"    
+    \+ breastfed(yes).                      % the recommendation for breastfed already includes "go to physician"
 
 addition(tips_coughing) :-
     cough(yes),
