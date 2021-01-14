@@ -147,6 +147,21 @@ recommendation(physician_ace) :-
     cough(yes),
     medication(ace_inhibitors).
 
+recommendation(physician_prescription) :-
+    cough(mild),
+    tried(soothing_syrup),
+    medication(sedative).
+
+recommendation(physician_prescription) :-
+    cough(mild),
+    tried(soothing_syrup),
+    medication(antibiotic).
+
+recommendation(physician_prescription) :-
+    cough(mild),
+    tried(soothing_syrup),
+    cough(productive).
+
 recommendation(soothing_syrup) :-
     cough(less_than_7_days),
     \+ age(under_3_months),
@@ -186,7 +201,8 @@ recommendation(expectorant_syrup) :-
 
 recommendation(soothing_syrup) :-
     cough(persistent),
-    medication(antibiotic).
+    medication(antibiotic),
+    \+ tried(soothing_syrup).
 
 recommendation(soothing_syrup) :-
     cough(persistent),
@@ -260,7 +276,8 @@ recommendation(paracetamol) :-
 take_medication(yes) :-                     % fact to make these additions easier
     recommendation(X),
     \+ X = physician_infection,
-    \+ X = physician_ace.
+    \+ X = physician_ace,
+    \+ X = physician_prescription.
 
 take_decongestant(no) :-
     recommendation(X),

@@ -3,8 +3,10 @@ recommendations = {
         ("The patient should see a physician, because they might have an underlying infection that needs to be treated, " +
          "with for example antibiotics. "),
     "physician_ace" :
-        ("The patient should their physician, because their cough might be a side-effect of the ACE inhibitors they use. " +
+        ("The patient should see their physician, because their cough might be a side-effect of the ACE inhibitors they use. " +
          "They could use a soothing cough syrup to alleviate the cough, but this will not make it go away. "),
+    "physician_prescription" :
+        ("The patient should see their physician to obtain a remedy that can only be prescribed by a doctor."),
     "soothing_syrup" :
         ("The patient should take a non-medicinal soothing cough syrup. "),
     "suppressant_syrup" :
