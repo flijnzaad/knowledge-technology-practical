@@ -1,5 +1,5 @@
 %% Declare these predicates as dynamic, i.e. facts with these predicates
-%% may be added using asserta/1.
+%% may be added to the KB dynamically using asserta/1.
 :- dynamic 
     additional_symptoms/1,
     age/1,
@@ -292,8 +292,11 @@ addition(breastfed) :-
 
 addition(if_tried_already) :-
     take_medication(yes),
-    take_decongestant(no),                  % the recommendation for decongestant already includes "if tried already"    
-    \+ breastfed(yes).                      % the recommendation for breastfed already includes "go to physician"
+    take_decongestant(no),                  % the recommendation for 
+                                            % decongestant already includes 
+                                            % "if tried already"    
+    \+ breastfed(yes).                      % the recommendation for breastfed
+                                            % already includes "go to physician"
 
 addition(tips_coughing) :-
     cough(yes),
